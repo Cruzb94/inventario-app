@@ -1,7 +1,13 @@
-@extends('default')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Dashboard</h1>
+@stop
 
 @section('content')
-
+   
 	<div class="d-flex justify-content-end mb-3"><a href="{{ route('productos.create') }}" class="btn btn-info">Create</a></div>
 
 	<table class="table table-bordered">
@@ -30,8 +36,7 @@
 
 					<td>
 						<div class="d-flex gap-2">
-                            <a href="{{ route('productos.show', [$producto->id]) }}" class="btn btn-info">Show</a>
-                            <a href="{{ route('productos.edit', [$producto->id]) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('productos.edit', [$producto->id]) }}" class="btn btn-primary mr-1">Edit</a>
                             {!! Form::open(['method' => 'DELETE','route' => ['productos.destroy', $producto->id]]) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
@@ -43,4 +48,13 @@
 		</tbody>
 	</table>
 
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@stop
+
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
 @stop
