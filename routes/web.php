@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\OperariosController;
+use App\Http\Controllers\EntradasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +24,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('productos', ProductosController::class);
+Route::resource('operarios', OperariosController::class);
+Route::resource('entradas', EntradasController::class);
