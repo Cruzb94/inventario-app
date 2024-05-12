@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Entrada;
+use App\Models\Producto;
+use App\Models\Operario;
 use App\Http\Requests\EntradaRequest;
 
 class EntradasController extends Controller
@@ -17,7 +19,9 @@ class EntradasController extends Controller
     public function index()
     {
         $entradas= Entrada::all();
-        return view('entradas.index', ['entradas'=>$entradas]);
+        $productos = Producto::all();
+        $operarios= Operario::all();
+        return view('entradas.index', ['entradas'=>$entradas, 'productos'=>$productos,'operarios'=>$operarios]);
     }
 
     /**

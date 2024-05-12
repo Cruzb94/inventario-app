@@ -18,7 +18,7 @@
 		</div>
 		<div class="mb-3">
 			{{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
-			{{ Form::string('fecha', null, array('class' => 'form-control')) }}
+			{{ Form::date('fecha', null, array('class' => 'form-control')) }}
 		</div>
 		<div class="mb-3">
 			{{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
