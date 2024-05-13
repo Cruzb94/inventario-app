@@ -3,51 +3,87 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <div class="d-flex justify-content-center align-items-center">
+        <h1 class="mt-4">Editar entrada</h1>
+    </div>
 @stop
 
 @section('content')
-@if($errors->any())
-<div class="alert alert-danger">
-	@foreach ($errors->all() as $error)
-		{{ $error }} <br>
-	@endforeach
-</div>
-@endif
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br>
+                    @endforeach
+                </div>
+                @endif
 
-{{ Form::model($entrada, array('route' => array('entradas.update', $entrada->id), 'method' => 'PUT')) }}
+                {!! Form::model($entrada, ['route' => ['entradas.update', $entrada->id], 'method' => 'PUT']) !!}
+                <div class="form-group row mt-4">
+                    <div class="col-sm-10">
+                        {{ Form::label('product_id', 'Producto', ['class'=>'form-label']) }}
+                        {{ Form::select('product_id', $productos->pluck('descripcion', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione un producto']) }}
+                    </div>
+                </div>
 
-<div class="mb-3">
-	{{ Form::label('product_id', 'Product_id', ['class'=>'form-label']) }}
-	{{ Form::text('product_id', null, array('class' => 'form-control')) }}
-</div>
-<div class="mb-3">
-	{{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
-	{{ Form::string('fecha', null, array('class' => 'form-control')) }}
-</div>
-<div class="mb-3">
-	{{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
-	{{ Form::text('cantidad', null, array('class' => 'form-control')) }}
-</div>
-<div class="mb-3">
-	{{ Form::label('operario_id', 'Operario_id', ['class'=>'form-label']) }}
-	{{ Form::text('operario_id', null, array('class' => 'form-control')) }}
-</div>
-<div class="mb-3">
-	{{ Form::label('reproceso', 'Reproceso', ['class'=>'form-label']) }}
-	{{ Form::text('reproceso', null, array('class' => 'form-control')) }}
-</div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
+                        {{ Form::date('fecha', null, ['class' => 'form-control']) }}
+                    </div>
+                </div>
 
-{{ Form::submit('Edit', array('class' => 'btn btn-primary')) }}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
+                        {{ Form::number('cantidad', null, ['class' => 'form-control']) }}
+                    </div>
+                </div>
 
-{{ Form::close() }}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('operario_id', 'Operario', ['class'=>'form-label']) }}
+                        {{ Form::select('operario_id', $operarios->pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione un operario']) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('reproceso', 'Reproceso', ['class'=>'form-label']) }}
+                        {{ Form::number('reproceso', null, ['class' => 'form-control']) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-5">
+                        {{ Form::submit('Actualizar', ['class' => 'btn btn-bg-purple']) }}
+                    </div>
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+    </style>
+	<link rel="stylesheet" href="{{ asset('estilos/estilos.css') }}">
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    
 @stop

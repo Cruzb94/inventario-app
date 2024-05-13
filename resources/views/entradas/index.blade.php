@@ -8,19 +8,19 @@
 @stop
 
 @section('content')
-<a href="{{ route('entradas.create') }}" class="btn btn-primary mb-3">Create</a>
+<a href="{{ route('entradas.create') }}" class="btn btn-bg-purple mb-3">Create</a>
 
 <table id="entrada"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 	<thead>
 		<tr>
-			<th class=" bg-primary text-wwhite">id</th>
-			<th class=" bg-primary text-wwhite">product_id</th>
-			<th class=" bg-primary text-wwhite">fecha</th>
-			<th class=" bg-primary text-wwhite">cantidad</th>
-			<th class=" bg-primary text-wwhite">operario_id</th>
-			<th class=" bg-primary text-wwhite">reproceso</th>
+			<th class=" bg-purple text-wwhite">id</th>
+			<th class=" bg-purple text-wwhite">product_id</th>
+			<th class=" bg-purple text-wwhite">fecha</th>
+			<th class=" bg-purple text-wwhite">cantidad</th>
+			<th class=" bg-purple text-wwhite">operario_id</th>
+			<th class=" bg-purple text-wwhite">reproceso</th>
 
-			<th class=" bg-primary text-wwhite">Action</th>
+			<th class=" bg-purple text-wwhite">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,7 +36,7 @@
 
 				<td>
 					<div class="d-flex gap-2">
-						<a href="{{ route('entradas.show', [$entrada->id]) }}" class="btn btn-info">Show</a>
+						
 						<a href="{{ route('entradas.edit', [$entrada->id]) }}" class="btn btn-primary">Edit</a>
 						{!! Form::open(['method' => 'DELETE','route' => ['entradas.destroy', $entrada->id]]) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
@@ -58,6 +58,11 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/4.0.0/css/fixedHeader.dataTables.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.dataTables.css">
+<link rel="stylesheet" href="{{asset('estilos/estilos.css')}}">
+
+<style>
+	
+</style>
 @stop
 
 @section('js')

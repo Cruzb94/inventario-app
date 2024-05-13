@@ -44,6 +44,6 @@ class User extends Authenticatable
 
 
     public function adminlte_image(){
-        return asset('vendor/adminlte/dist/img/logotipoperson.png');
+        return asset('vendor/adminlte/dist/img/morado.avif');
     }
 }

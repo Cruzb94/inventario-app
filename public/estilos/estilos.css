@@ -1,0 +1,20 @@
+.gradien{
+    background: #800080;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #000000, #800080);
+background: linear-gradient(to right, #000000, #800080);
+}
+
+.btn-bg-purple {
+    background-color: #4B0082; /* Morado oscuro */
+    border-color: #4B0082; /* Morado oscuro */
+    color: #FFFFFF; /* Texto blanco */
+}
+
+.btn-bg-purple:hover,
+.btn-bg-purple:focus {
+    background-color: #800080; /* Morado más claro cuando se pasa el ratón o está enfocado */
+    border-color: #800080; /* Morado más claro cuando se pasa el ratón o está enfocado */
+    color: #FFFFFF; /* Texto blanco */
+}

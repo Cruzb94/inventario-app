@@ -25,9 +25,8 @@ class EntradasController extends Controller
     public function index()
     {
         $entradas= Entrada::all();
-        $productos = Producto::all();
-        $operarios= Operario::all();
-        return view('entradas.index', ['entradas'=>$entradas, 'productos'=>$productos,'operarios'=>$operarios]);
+
+        return view('entradas.index', ['entradas'=>$entradas]);
     }
 
     /**
@@ -37,7 +36,10 @@ class EntradasController extends Controller
      */
     public function create()
     {
-        return view('entradas.create');
+        $entradas= Entrada::all();
+        $productos = Producto::all();
+        $operarios= Operario::all();
+        return view('entradas.create', ['entradas'=>$entradas, 'productos'=>$productos,'operarios'=>$operarios]);
     }
 
     /**
@@ -80,7 +82,9 @@ class EntradasController extends Controller
     public function edit($id)
     {
         $entrada = Entrada::findOrFail($id);
-        return view('entradas.edit',['entrada'=>$entrada]);
+        $productos = Producto::all();
+        $operarios= Operario::all();
+        return view('entradas.edit',['entrada'=>$entrada, 'productos'=>$productos,'operarios'=>$operarios]);
     }
 
     /**
