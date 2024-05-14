@@ -9,9 +9,14 @@ class Entrada extends Model
 {
     use HasFactory;
 
-	public function products()
+	public function producto()
 	{
-		return $this->hasMany('App\Models\Product');
+		return $this->belongsTo('App\Models\Producto');
+	}
+
+	public function operario()
+	{
+		return $this->belongsTo('App\Models\Operario');
 	}
 
 }

@@ -15,12 +15,15 @@ class CreateEntradasTable extends Migration
     {
         Schema::create('entradas', function (Blueprint $table) {
             $table->id();
-			$table->integer('product_id');
+			$table->unsignedBigInteger('producto_id');
 			$table->date('fecha');
 			$table->integer('cantidad');
-			$table->integer('operario_id');
+			$table->unsignedBigInteger('operario_id');
 			$table->integer('reproceso');
             $table->timestamps();
+
+            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->foreign('operario_id')->references('id')->on('operarios');
         });
     }
 

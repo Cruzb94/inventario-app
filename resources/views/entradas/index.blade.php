@@ -28,10 +28,10 @@
 
 			<tr>
 				<td>{{ $entrada->id }}</td>
-				<td>{{ $entrada->product_id }}</td>
+				<td>{{ $entrada->producto->descripcion }}</td>
 				<td>{{ $entrada->fecha }}</td>
 				<td>{{ $entrada->cantidad }}</td>
-				<td>{{ $entrada->operario_id }}</td>
+				<td>{{ $entrada->operario->name }}</td>
 				<td>{{ $entrada->reproceso }}</td>
 
 				<td>

@@ -24,7 +24,7 @@ class EntradasController extends Controller
      */
     public function index()
     {
-        $entradas= Entrada::all();
+        $entradas= Entrada::with('producto')->with('operario')->get();
 
         return view('entradas.index', ['entradas'=>$entradas]);
     }
@@ -51,7 +51,7 @@ class EntradasController extends Controller
     public function store(EntradaRequest $request)
     {
         $entrada = new Entrada;
-		$entrada->product_id = $request->input('product_id');
+		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');
 		$entrada->cantidad = $request->input('cantidad');
 		$entrada->operario_id = $request->input('operario_id');
@@ -97,7 +97,7 @@ class EntradasController extends Controller
     public function update(EntradaRequest $request, $id)
     {
         $entrada = Entrada::findOrFail($id);
-		$entrada->product_id = $request->input('product_id');
+		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');
 		$entrada->cantidad = $request->input('cantidad');
 		$entrada->operario_id = $request->input('operario_id');
