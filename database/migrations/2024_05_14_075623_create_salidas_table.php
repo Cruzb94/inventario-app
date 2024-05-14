@@ -16,11 +16,11 @@ class CreateSalidasTable extends Migration
         Schema::create('salidas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('producto_id');
-			$table-> date('fecha');
-			$table-> int('cantidad');
-			$table-> string('guia');
-			$table-> float('valor');
-			$table-> string('estatus');
+			$table->date('fecha');
+			$table->integer('cantidad');
+			$table->string('guia');
+			$table->float('valor');
+			$table->string('estatsus');
             $table->timestamps();
             $table->foreign('producto_id')->references('id')->on('productos');
         });
