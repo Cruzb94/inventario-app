@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\OperariosController;
 use App\Http\Controllers\EntradasController;
 use App\Http\Controllers\SalidasController;
-use App\Http\Controllers\TallersController;
+use App\Http\Controllers\IngresosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +30,4 @@ Route::resource('operarios', OperariosController::class);
 Route::resource('entradas', EntradasController::class);
 Route::resource('salidas', SalidasController::class);
 Route::resource('tallers', TallersController::class);
+Route::resource('ingresos', IngresosController::class);
