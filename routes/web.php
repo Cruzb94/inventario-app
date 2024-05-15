@@ -21,7 +21,7 @@ use App\Http\Controllers\TallersController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
     return view('auth.login');
 });
 
