@@ -9,6 +9,12 @@ use App\Http\Requests\TallerRequest;
 
 class TallersController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +56,7 @@ class TallersController extends Controller
 		$taller->reprocesos = $request->input('reprocesos');
         $taller->save();
 
-        return to_route('tallers.index');
+        return to_route('tallers.index')->with('create','ok1');
     }
 
     /**
@@ -98,7 +104,7 @@ class TallersController extends Controller
 		$taller->reprocesos = $request->input('reprocesos');
         $taller->save();
 
-        return to_route('tallers.index');
+        return to_route('tallers.index')->with('editar','ok2');
     }
 
     /**
@@ -112,6 +118,6 @@ class TallersController extends Controller
         $taller = Taller::findOrFail($id);
         $taller->delete();
 
-        return to_route('tallers.index');
+        return to_route('tallers.index')->with('eliminar','ok3');
     }
 }

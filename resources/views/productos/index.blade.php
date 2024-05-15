@@ -37,9 +37,9 @@
 					<td>
 						<div class="d-flex gap-2">
                             <a href="{{ route('productos.edit', [$producto->id]) }}" class="btn btn-primary mr-1">Edit</a>
-                            {!! Form::open(['method' => 'DELETE','route' => ['productos.destroy', $producto->id]]) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
+							{!! Form::open(['method' => 'DELETE', 'route' => ['productos.destroy', $producto->id], 'class' => 'formulario-eliminar']) !!}
+							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+						{!! Form::close() !!}
                         </div>
 					</td>
 				</tr>
@@ -108,4 +108,76 @@
    
    
    </script>
+
+
+@if (session('create') == 'ok1')
+    <script>
+        Swal.fire({
+                title: "Creado!",
+                text: "El Producto se creo con exito.",
+                icon: "success"
+    });
+
+
+            
+    </script>
+
+@endif
+
+@if (session('editar') == 'ok2')
+    <script>
+        Swal.fire({
+                title: "Editado!",
+                text: "El producto se edito con exito.",
+                icon: "success"
+    });
+            
+    </script>
+
+@endif
+
+
+
+
+@if (session('eliminar') == 'ok3')
+    <script>
+        Swal.fire({
+                title: "¡Eliminado!",
+                text: "El producto se elimino con exito.",
+                icon: "success"
+    });
+
+
+            
+    </script>
+
+@endif
+
+<script>
+    
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+        Swal.fire({
+            title: "¿Esta seguro?",
+            text: "Este producto se eliminara definitivamente",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "¡si, eliminar!",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                /*Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+    });*/
+
+            this.submit();
+  }
+});
+    });
+
+</script>
 @stop

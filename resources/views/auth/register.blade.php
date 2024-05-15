@@ -17,6 +17,11 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="{{asset('estilos/estilos.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css
+
+
+
+        ">
     </head>
 
     <body>
@@ -35,38 +40,76 @@
                             <h4 class="mt-1 mb-5 pb-1">Crear cuenta:</h4>
                           </div>
           
-                          <form action="{{route('register')}}" method="post">
+                          <form action="{{route('register')}}" class="needs-validation" novalidate method="post">
                             @csrf
                             <p>Ingresa los datos</p>
-          
+                        
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example11">Nombre</label>
-                              <input type="text" name="name" id="form2Example11" class="form-control" required/>
-                                     
-                              
+                                <label class="form-label" for="name">Nombre y Apellido</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Nombre y Apellido" pattern="[A-Za-z\s]+" required/>
+                                    <div class="valid-feedback">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Por favor, ingresa solo letras y espacios y el campo no puede estar vacío.
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="form2Example11">Email</label>
-                              <input type="email" name="email" id="form2Example11" class="form-control" required/>
+                                <label class="form-label" for="email">Email</label>
+                                <div class="input-group">
+                                  <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                              <input type="email" name="email" id="email" class="form-control" placeholder="Correo electrónico" required/>
+                              <div class="valid-feedback">
+                                ¡Se ve bien!
+                              </div>
+                              <div class="invalid-feedback">
+                                Por favor, ingresa un correo electrónico válido.
+                              </div>
                                      
-                              
+                            </div>
                             </div>
           
                             <div class="form-outline mb-4">
                                 <label class="form-label"  for="form2Example22">Contraseña</label>
-                              <input type="password" name="password" id="form2Example22" class="form-control" required />
+                                <div class="input-group">
+                                  <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                              <input type="password" name="password" id="form2Example22" class="form-control" placeholder="Contraseña" required />
                               
+                              <div id="passwordFeedback" class="valid-feedback" style="display: none;">
+                                El campo no puede estar vacio
+                            </div>
+                            <div class="invalid-feedback">
+                              El campo no puede estar vacio
+                            </div>
+
+                            </div> 
                             </div>
 
                             <div class="form-outline mb-4">
-                                <label class="form-label"  for="form2Example22">Confirmar Contraseña</label>
-                              <input type="password" name="password_confirmation" id="form2Example22" class="form-control" required />
-                              
+                                <label class="form-label"  for="form2Example23">Confirmar Contraseña</label>
+                                <div class="input-group">
+                                  <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                              <input type="password" name="password_confirmation" id="form2Example23" class="form-control" placeholder="Confirmar Contraseña" required />
+                              <div id="confirmPasswordFeedback" class="valid-feedback" style="display: none;">
+                                El campo no puede estar vacio
+                            </div>
+                            <div class="invalid-feedback">
+                              El campo no puede estar vacio
+                            </div>
+                            <div class="invalid-feedback" id="confirmPasswordErrorMessage">
+                              Las contraseñas no coinciden.
+                          </div>
+                            
+
+                            </div> 
                             </div>
           
-                            <div class="text-center pt-1 mb-5 pb-1">
-                                <button class="btn btn-bg-purple btn-block fa-lg  mb-3" type="submit">Registrarse
+                            <div class="text-center pt-1 mb-3 pb-1">
+                                <button class="btn btn-bg-purple   mb-3" type="submit">Registrarse
                                 </button>
                              
                             </div>
@@ -120,5 +163,43 @@
         });
     </script>
 @endif
+
+<script>
+  (function () {
+      'use strict';
+
+      var forms = document.querySelectorAll('.needs-validation');
+
+      Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+              } else {
+                  // Aquí puedes agregar la validación de contraseñas
+                  var password = document.getElementById('form2Example22').value;
+                  var confirmPassword = document.getElementById('form2Example23').value;
+
+                  if (password !== confirmPassword) {
+                      // Si las contraseñas no coinciden, mostrar mensaje de error
+                      event.preventDefault(); // Evitar el envío del formulario
+                      event.stopPropagation(); // Detener la propagación del evento
+
+                      var confirmPasswordErrorMessage = document.getElementById('confirmPasswordErrorMessage');
+                      confirmPasswordErrorMessage.style.display = 'block';
+
+                      // Agregar clase de validación al formulario
+                      form.classList.add('was-validated');
+                  }
+              }
+
+              form.classList.add('was-validated');
+          }, false);
+      });
+
+  })();
+</script>
+
+
     </body>
 </html>

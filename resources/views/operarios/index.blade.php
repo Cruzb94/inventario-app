@@ -29,7 +29,7 @@
 					<div class="d-flex gap-2">
 					
 						<a href="{{ route('operarios.edit', [$operario->id]) }}" class="btn btn-primary mr-1">Edit</a>
-						{!! Form::open(['method' => 'DELETE','route' => ['operarios.destroy', $operario->id]]) !!}
+						{!! Form::open(['method' => 'DELETE','route' => ['operarios.destroy', $operario->id], 'class' => 'formulario-eliminar']) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 						{!! Form::close() !!}
 					</div>
@@ -99,4 +99,76 @@
    
    
    </script>
+
+   
+@if (session('create') == 'ok1')
+<script>
+	Swal.fire({
+			title: "Creado!",
+			text: "El Operador se creo con exito.",
+			icon: "success"
+});
+
+
+		
+</script>
+
+@endif
+
+@if (session('editar') == 'ok2')
+<script>
+	Swal.fire({
+			title: "Editado!",
+			text: "El Operador se edito con exito.",
+			icon: "success"
+});
+		
+</script>
+
+@endif
+
+
+
+
+@if (session('eliminar') == 'ok3')
+<script>
+	Swal.fire({
+			title: "¡Eliminado!",
+			text: "El Operador se elimino con exito.",
+			icon: "success"
+});
+
+
+		
+</script>
+
+@endif
+
+<script>
+
+$('.formulario-eliminar').submit(function(e){
+	e.preventDefault();
+	Swal.fire({
+		title: "¿Esta seguro?",
+		text: "Este Operador se eliminara definitivamente",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "¡si, eliminar!",
+		cancelButtonText: "Cancelar",
+	}).then((result) => {
+		if (result.isConfirmed) {
+			/*Swal.fire({
+			title: "Deleted!",
+			text: "Your file has been deleted.",
+			icon: "success"
+});*/
+
+		this.submit();
+}
+});
+});
+
+</script>
 @stop

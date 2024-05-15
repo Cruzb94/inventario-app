@@ -25,7 +25,7 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         {{ Form::label('product_id', 'Producto', ['class'=>'form-label']) }}
-                        {{ Form::select('product_id', $productos->pluck('descripcion', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione un producto']) }}
+                        {{ Form::select('product_id', $productos->pluck('descripcion', 'id'), $entrada->producto_id, ['class' => 'form-control', 'placeholder' => 'Seleccione un producto']) }}
                     </div>
                 </div>
 

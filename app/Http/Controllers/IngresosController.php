@@ -9,6 +9,12 @@ use App\Http\Requests\IngresoRequest;
 
 class IngresosController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +52,7 @@ class IngresosController extends Controller
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();
 
-        return to_route('ingresos.index');
+        return to_route('ingresos.index')->with('create','ok1');
     }
 
     /**
@@ -90,7 +96,7 @@ class IngresosController extends Controller
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();
 
-        return to_route('ingresos.index');
+        return to_route('ingresos.index')->with('editar','ok2');
     }
 
     /**
@@ -104,6 +110,6 @@ class IngresosController extends Controller
         $ingreso = Ingreso::findOrFail($id);
         $ingreso->delete();
 
-        return to_route('ingresos.index');
+        return to_route('ingresos.index')->with('eliminar','ok3');
     }
 }

@@ -52,7 +52,7 @@ class ProductosController extends Controller
 		$producto->stock = $request->input('stock');
         $producto->save();
 
-        return to_route('productos.index');
+        return to_route('productos.index')->with('create','ok1');
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductosController extends Controller
 		$producto->stock = $request->input('stock');
         $producto->save();
 
-        return to_route('productos.index');
+        return to_route('productos.index')->with('editar','ok2');
     }
 
     /**
@@ -110,6 +110,6 @@ class ProductosController extends Controller
         $producto = Producto::findOrFail($id);
         $producto->delete();
 
-        return to_route('productos.index');
+        return to_route('productos.index')->with('eliminar','ok3');
     }
 }

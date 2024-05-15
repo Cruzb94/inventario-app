@@ -48,7 +48,7 @@ class OperariosController extends Controller
 		$operario->name = $request->input('name');
         $operario->save();
 
-        return to_route('operarios.index');
+        return to_route('operarios.index')->with('create','ok1');
     }
 
     /**
@@ -88,7 +88,7 @@ class OperariosController extends Controller
 		$operario->name = $request->input('name');
         $operario->save();
 
-        return to_route('operarios.index');
+        return to_route('operarios.index')->with('editar','ok2');
     }
 
     /**
@@ -102,6 +102,6 @@ class OperariosController extends Controller
         $operario = Operario::findOrFail($id);
         $operario->delete();
 
-        return to_route('operarios.index');
+        return to_route('operarios.index')->with('eliminar','ok3');
     }
 }

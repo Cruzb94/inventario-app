@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'productos',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -326,6 +326,21 @@ return [
                     'text' => 'Entradas',
                     'icon' => 'fas fa-ticket-alt',
                     'url' => 'entradas',
+                ],
+                [
+                    'text' => 'Salidas',
+                    'icon' => "fas fa-sign-out-alt",
+                    'url' => 'salidas',
+                ],
+                [
+                    'text' => 'Ingresos',
+                    'icon' => "fas fa-money-check-alt",
+                    'url' => 'ingresos',
+                ],
+                [
+                    'text' => 'Tallers',
+                    'icon' => "fas fa-building",
+                    'url' => 'tallers',
                 ],
                 
 
@@ -427,12 +442,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

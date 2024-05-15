@@ -58,7 +58,7 @@ class EntradasController extends Controller
 		$entrada->reproceso = $request->input('reproceso');
         $entrada->save();
 
-        return to_route('entradas.index');
+        return to_route('entradas.index')->with('create','ok1');
     }
 
     /**
@@ -104,7 +104,7 @@ class EntradasController extends Controller
 		$entrada->reproceso = $request->input('reproceso');
         $entrada->save();
 
-        return to_route('entradas.index');
+        return to_route('entradas.index')->with('editar','ok2');
     }
 
     /**
@@ -118,6 +118,6 @@ class EntradasController extends Controller
         $entrada = Entrada::findOrFail($id);
         $entrada->delete();
 
-        return to_route('entradas.index');
+        return to_route('entradas.index')->with('eliminar','ok3');
     }
 }

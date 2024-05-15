@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Salida;
+use App\Models\Producto;
 use App\Http\Requests\SalidaRequest;
 
 class SalidasController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +34,8 @@ class SalidasController extends Controller
      */
     public function create()
     {
-        return view('salidas.create');
+        $productos = Producto::all();
+        return view('salidas.create', ['productos'=>$productos]);
     }
 
     /**
@@ -38,16 +46,17 @@ class SalidasController extends Controller
      */
     public function store(SalidaRequest $request)
     {
+       // dd($request);
         $salida = new Salida;
-		$salida->descripcion = $request->input('producto_id');
+		$salida->producto_id = $request->input('producto_id');
 		$salida->fecha = $request->input('fecha');
 		$salida->cantidad = $request->input('cantidad');
 		$salida->guia = $request->input('guia');
 		$salida->valor = $request->input('valor');
-		$salida->estatus = $request->input('estatus');
+		$salida->estatsus = $request->input('estatus');
         $salida->save();
 
-        return to_route('salidas.index');
+        return to_route('salidas.index')->with('create','ok1');
     }
 
     /**
@@ -71,7 +80,8 @@ class SalidasController extends Controller
     public function edit($id)
     {
         $salida = Salida::findOrFail($id);
-        return view('salidas.edit',['salida'=>$salida]);
+        $productos = Producto::all();
+        return view('salidas.edit',['salida'=>$salida, 'productos'=>$productos]);
     }
 
     /**
@@ -89,10 +99,10 @@ class SalidasController extends Controller
 		$salida->cantidad = $request->input('cantidad');
 		$salida->guia = $request->input('guia');
 		$salida->valor = $request->input('valor');
-		$salida->estatus = $request->input('estatus');
+		$salida->estatsus = $request->input('estatus');
         $salida->save();
 
-        return to_route('salidas.index');
+        return to_route('salidas.index')->with('editar','ok2');
     }
 
     /**
@@ -106,6 +116,6 @@ class SalidasController extends Controller
         $salida = Salida::findOrFail($id);
         $salida->delete();
 
-        return to_route('salidas.index');
+        return to_route('salidas.index')->with('eliminar','ok3');
     }
 }

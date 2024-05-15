@@ -6,6 +6,9 @@ use App\Http\Controllers\OperariosController;
 use App\Http\Controllers\EntradasController;
 use App\Http\Controllers\SalidasController;
 use App\Http\Controllers\IngresosController;
+use App\Http\Controllers\TallersController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +22,7 @@ use App\Http\Controllers\IngresosController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();

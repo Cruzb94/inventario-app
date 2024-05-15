@@ -14,10 +14,11 @@
 	<thead>
 		<tr>
 			<th class=" bg-purple text-wwhite">id</th>
-			<th class=" bg-purple text-wwhite">product_id</th>
+			<th class=" bg-purple text-wwhite">referencia</th>
+			<th class=" bg-purple text-wwhite">descripcion</th>
 			<th class=" bg-purple text-wwhite">fecha</th>
 			<th class=" bg-purple text-wwhite">cantidad</th>
-			<th class=" bg-purple text-wwhite">operario_id</th>
+			<th class=" bg-purple text-wwhite">operario</th>
 			<th class=" bg-purple text-wwhite">reproceso</th>
 
 			<th class=" bg-purple text-wwhite">Action</th>
@@ -28,6 +29,7 @@
 
 			<tr>
 				<td>{{ $entrada->id }}</td>
+				<td>{{ $entrada->producto->referencia }}</td>
 				<td>{{ $entrada->producto->descripcion }}</td>
 				<td>{{ $entrada->fecha }}</td>
 				<td>{{ $entrada->cantidad }}</td>
@@ -38,7 +40,7 @@
 					<div class="d-flex gap-2">
 						
 						<a href="{{ route('entradas.edit', [$entrada->id]) }}" class="btn btn-primary">Edit</a>
-						{!! Form::open(['method' => 'DELETE','route' => ['entradas.destroy', $entrada->id]]) !!}
+						{!! Form::open(['method' => 'DELETE','route' => ['entradas.destroy', $entrada->id], 'class' => 'formulario-eliminar']) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 						{!! Form::close() !!}
 					</div>
@@ -113,4 +115,77 @@
    
    
    </script>
+
+   
+
+@if (session('create') == 'ok1')
+<script>
+	Swal.fire({
+			title: "Creado!",
+			text: "La Entrada se creo con exito.",
+			icon: "success"
+});
+
+
+		
+</script>
+
+@endif
+
+@if (session('editar') == 'ok2')
+<script>
+	Swal.fire({
+			title: "Editado!",
+			text: "La Entrada se edito con exito.",
+			icon: "success"
+});
+		
+</script>
+
+@endif
+
+
+
+
+@if (session('eliminar') == 'ok3')
+<script>
+	Swal.fire({
+			title: "¡Eliminado!",
+			text: "La Entrada se elimino con exito.",
+			icon: "success"
+});
+
+
+		
+</script>
+
+@endif
+
+<script>
+
+$('.formulario-eliminar').submit(function(e){
+	e.preventDefault();
+	Swal.fire({
+		title: "¿Esta seguro?",
+		text: "Esta entrada se eliminara definitivamente",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "¡si, eliminar!",
+		cancelButtonText: "Cancelar",
+	}).then((result) => {
+		if (result.isConfirmed) {
+			/*Swal.fire({
+			title: "Deleted!",
+			text: "Your file has been deleted.",
+			icon: "success"
+});*/
+
+		this.submit();
+}
+});
+});
+
+</script>
 @stop

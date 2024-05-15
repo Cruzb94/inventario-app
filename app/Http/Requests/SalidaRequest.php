@@ -25,13 +25,12 @@ class SalidaRequest extends FormRequest
     {
         return
         [
-			'referencia' => 'required',
-			'descripcion' => 'required',
-			'fecha' => 'required',
-			'cantidad' => 'required',
-			'guia' => 'required',
-			'valor' => 'required',
-			'estatus' => 'required',
+            'fecha' => 'required',
+            'cantidad' => 'required',
+            'guia' => 'required',
+            'valor' => 'required',
+            'estatus' => 'required',
+            'producto_id' => 'required', // Agregamos la validación para product_id
         ];
     }
 }
