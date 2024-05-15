@@ -45,7 +45,7 @@
                             <p>Ingresa los datos</p>
                         
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="name">Nombre y Apellido</label>
+                                <label class="form-label" for="name">Nombre y Apellido </label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                     <input type="text" name="name" id="name" class="form-control" placeholder="Nombre y Apellido" pattern="[A-Za-z\s]+" required/>
