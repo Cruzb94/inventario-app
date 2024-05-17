@@ -16,6 +16,10 @@ class CreateOperariosTable extends Migration
         Schema::create('operarios', function (Blueprint $table) {
             $table->id();
 			$table->string('name');
+            $table->string('nit');
+            $table->string('numero_contacto');
+            $table->string('direccion');
+            $table->date('fecha_ingreso');
             $table->timestamps();
         });
     }

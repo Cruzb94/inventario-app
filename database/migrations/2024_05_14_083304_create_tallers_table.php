@@ -15,16 +15,15 @@ class CreateTallersTable extends Migration
     {
         Schema::create('tallers', function (Blueprint $table) {
             $table->id();
-			$table-> string('nombre');
-			$table->string('referencia');
-			$table->string('descripcion');
+			$table->unsignedBigInteger('operario_id');
+			$table->text('referencia');
 			$table->date('fecha');
-			$table->integer('cantidad');
-			$table->float('valor_unidad');
 			$table->float('valor_total');
 			$table->string('observaciones');
 			$table->integer('reprocesos');
             $table->timestamps();
+
+            $table->foreign('operario_id')->references('id')->on('operarios');
         });
     }
 

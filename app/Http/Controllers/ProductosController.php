@@ -47,8 +47,6 @@ class ProductosController extends Controller
         $producto = new Producto;
 		$producto->referencia = $request->input('referencia');
 		$producto->descripcion = $request->input('descripcion');
-		$producto->entrada = $request->input('entrada');
-		$producto->salida = $request->input('salida');
 		$producto->stock = $request->input('stock');
         $producto->save();
 
@@ -91,8 +89,6 @@ class ProductosController extends Controller
         $producto = Producto::findOrFail($id);
 		$producto->referencia = $request->input('referencia');
 		$producto->descripcion = $request->input('descripcion');
-		$producto->entrada = $request->input('entrada');
-		$producto->salida = $request->input('salida');
 		$producto->stock = $request->input('stock');
         $producto->save();
 

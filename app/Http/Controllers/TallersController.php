@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Taller;
+use App\Models\Producto;
+use App\Models\Operario;
 use App\Http\Requests\TallerRequest;
 
 class TallersController extends Controller
@@ -23,6 +25,8 @@ class TallersController extends Controller
     public function index()
     {
         $tallers= Taller::all();
+      
+
         return view('tallers.index', ['tallers'=>$tallers]);
     }
 
@@ -33,7 +37,10 @@ class TallersController extends Controller
      */
     public function create()
     {
-        return view('tallers.create');
+        $productos = Producto::all();
+        $operarios = Operario::all();
+
+        return view('tallers.create', ['productos' =>$productos, 'operarios'  =>$operarios]);
     }
 
     /**
@@ -47,10 +54,7 @@ class TallersController extends Controller
         $taller = new Taller;
 		$taller->nombre = $request->input('nombre');
 		$taller->referencia = $request->input('referencia');
-		$taller->descripcion = $request->input('descripcion');
 		$taller->fecha = $request->input('fecha');
-		$taller->cantidad = $request->input('cantidad');
-		$taller->valor_unidad = $request->input('valor_unidad');
 		$taller->valor_total = $request->input('valor_total');
 		$taller->observaciones = $request->input('observaciones');
 		$taller->reprocesos = $request->input('reprocesos');
@@ -68,6 +72,7 @@ class TallersController extends Controller
     public function show($id)
     {
         $taller = Taller::findOrFail($id);
+        
         return view('tallers.show',['taller'=>$taller]);
     }
 
@@ -80,7 +85,9 @@ class TallersController extends Controller
     public function edit($id)
     {
         $taller = Taller::findOrFail($id);
-        return view('tallers.edit',['taller'=>$taller]);
+        $productos = Producto::all();
+        $operarios = Operario::all();
+        return view('tallers.edit',['taller'=>$taller, $productos, 'operarios'  =>$operarios]);
     }
 
     /**
@@ -95,10 +102,7 @@ class TallersController extends Controller
         $taller = Taller::findOrFail($id);
 		$taller->nombre = $request->input('nombre');
 		$taller->referencia = $request->input('referencia');
-		$taller->descripcion = $request->input('descripcion');
 		$taller->fecha = $request->input('fecha');
-		$taller->cantidad = $request->input('cantidad');
-		$taller->valor_unidad = $request->input('valor_unidad');
 		$taller->valor_total = $request->input('valor_total');
 		$taller->observaciones = $request->input('observaciones');
 		$taller->reprocesos = $request->input('reprocesos');
