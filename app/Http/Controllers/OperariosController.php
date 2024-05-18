@@ -46,6 +46,9 @@ class OperariosController extends Controller
     {
         $operario = new Operario;
 		$operario->name = $request->input('name');
+        $operario->numero_contacto = $request->input('numero_contacto');
+        $operario->direccion = $request->input('direccion');
+        $operario->fecha_ingreso = $request->input('fecha_ingreso');
         $operario->save();
 
         return to_route('operarios.index')->with('create','ok1');
@@ -86,6 +89,9 @@ class OperariosController extends Controller
     {
         $operario = Operario::findOrFail($id);
 		$operario->name = $request->input('name');
+        $operario->numero_contacto = $request->input('numero_contacto');
+        $operario->direccion = $request->input('direccion');
+        $operario->fecha_ingreso = $request->input('fecha_ingreso');
         $operario->save();
 
         return to_route('operarios.index')->with('editar','ok2');
