@@ -38,20 +38,6 @@
 
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        {{ Form::label('entrada', 'Entrada', ['class'=>'form-label']) }}
-                        {{ Form::number('entrada', null, ['class' => 'form-control']) }}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('salida', 'Salida', ['class'=>'form-label']) }}
-                        {{ Form::number('salida', null, ['class' => 'form-control']) }}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-10">
                         {{ Form::label('stock', 'Stock', ['class'=>'form-label']) }}
                         {{ Form::number('stock', null, ['class' => 'form-control']) }}
                     </div>

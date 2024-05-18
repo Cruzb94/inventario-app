@@ -44,7 +44,7 @@ class CuentaBancosController extends Controller
 		$cuentabanco->nro_cuenta = $request->input('nro_cuenta');
         $cuentabanco->save();
 
-        return to_route('cuentabancos.index');
+        return to_route('cuentabancos.index')->with('create','ok1');;
     }
 
     /**
@@ -86,7 +86,7 @@ class CuentaBancosController extends Controller
 		$cuentabanco->nro_cuenta = $request->input('nro_cuenta');
         $cuentabanco->save();
 
-        return to_route('cuentabancos.index');
+        return to_route('cuentabancos.index')->with('editar','ok2');;
     }
 
     /**
@@ -100,6 +100,6 @@ class CuentaBancosController extends Controller
         $cuentabanco = CuentaBanco::findOrFail($id);
         $cuentabanco->delete();
 
-        return to_route('cuentabancos.index');
+        return to_route('cuentabancos.index')->with('eliminar','ok3');
     }
 }

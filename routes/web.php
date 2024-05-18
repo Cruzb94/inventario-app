@@ -7,6 +7,8 @@ use App\Http\Controllers\EntradasController;
 use App\Http\Controllers\SalidasController;
 use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\TallersController;
+use App\Http\Controllers\CuentaBancosController;
+
 
 
 
@@ -21,7 +23,7 @@ use App\Http\Controllers\TallersController;
 |
 */
 
-Route::get('/admin', function () {
+Route::get('/', function () {
     return view('auth.login');
 });
 
@@ -34,3 +36,4 @@ Route::resource('entradas', EntradasController::class);
 Route::resource('salidas', SalidasController::class);
 Route::resource('tallers', TallersController::class);
 Route::resource('ingresos', IngresosController::class);
+Route::resource('cuentabancos', CuentaBancosController::class);

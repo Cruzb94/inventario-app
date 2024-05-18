@@ -342,6 +342,11 @@ return [
                     'icon' => "fas fa-building",
                     'url' => 'tallers',
                 ],
+                [
+                    'text' => 'Cuenta bancaria',
+                    'icon' => "fas fa-university",
+                    'url' => 'cuentabancos',
+                ],
                 
 
             ],

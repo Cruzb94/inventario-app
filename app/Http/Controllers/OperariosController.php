@@ -46,6 +46,7 @@ class OperariosController extends Controller
     {
         $operario = new Operario;
 		$operario->name = $request->input('name');
+        $operario->nit = $request->input('nit');
         $operario->numero_contacto = $request->input('numero_contacto');
         $operario->direccion = $request->input('direccion');
         $operario->fecha_ingreso = $request->input('fecha_ingreso');

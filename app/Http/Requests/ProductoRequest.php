@@ -27,8 +27,8 @@ class ProductoRequest extends FormRequest
         [
 			'referencia' => 'required',
 			'descripcion' => 'required',
-			'entrada' => 'required',
-			'salida' => 'required',
+		//	'entrada' => 'required',
+		//	'salida' => 'required',
 			'stock' => 'required',
         ];
     }

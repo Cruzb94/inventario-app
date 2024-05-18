@@ -14,6 +14,10 @@
 		<tr>
 			<th class=" bg-purple text-wwhite">id</th>
 			<th class=" bg-purple text-wwhite">name</th>
+			<th class=" bg-purple text-wwhite">Cedula-Nit</th>
+			<th class=" bg-purple text-wwhite">Numero de contacto</th>
+			<th class=" bg-purple text-wwhite">Direccion</th>
+			<th class=" bg-purple text-wwhite">Fecha de ingreso</th>
 
 			<th class=" bg-purple text-wwhite">Action</th>
 		</tr>
@@ -24,6 +28,10 @@
 			<tr>
 				<td>{{ $operario->id }}</td>
 				<td>{{ $operario->name }}</td>
+				<td>{{ $operario->nit }}</td>
+				<td>{{ $operario->numero_contacto }}</td>
+				<td>{{ $operario->direccion }}</td>
+				<td>{{ $operario->fecha_ingreso }}</td>
 
 				<td>
 					<div class="d-flex gap-2">

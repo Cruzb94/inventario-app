@@ -16,8 +16,6 @@
 				<th class=" bg-purple text-wwhite">id</th>
 				<th class=" bg-purple text-wwhite">referencia</th>
 				<th class=" bg-purple text-wwhite">descripcion</th>
-				<th class=" bg-purple text-wwhite">entrada</th>
-				<th class=" bg-purple text-wwhite">salida</th>
 				<th class=" bg-purple text-wwhite">stock</th>
 
 				<th class=" bg-purple text-wwhite">Action</th>
@@ -30,8 +28,6 @@
 					<td>{{ $producto->id }}</td>
 					<td>{{ $producto->referencia }}</td>
 					<td>{{ $producto->descripcion }}</td>
-					<td>{{ $producto->entrada }}</td>
-					<td>{{ $producto->salida }}</td>
 					<td>{{ $producto->stock }}</td>
 
 					<td>

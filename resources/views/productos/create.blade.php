@@ -36,19 +36,6 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('entrada', 'Entrada', ['class'=>'form-label']) }}
-                        {{ Form::number('entrada', null, array('class' => 'form-control')) }}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('salida', 'Salida', ['class'=>'form-label']) }}
-                        {{ Form::number('salida', null, array('class' => 'form-control')) }}
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">

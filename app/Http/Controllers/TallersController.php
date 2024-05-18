@@ -40,6 +40,8 @@ class TallersController extends Controller
         $productos = Producto::all();
         $operarios = Operario::all();
 
+        //dd($productos);
+
         return view('tallers.create', ['productos' =>$productos, 'operarios'  =>$operarios]);
     }
 
@@ -51,6 +53,25 @@ class TallersController extends Controller
      */
     public function store(TallerRequest $request)
     {
+        dd($request->all());
+   $data = $request->all();
+
+
+   $referencias = [];
+   $descripciones = [];
+   $valoresUnidad = [];
+   $cantidades = [];
+
+
+   for ($i = 1; $i <= count($data) / 4; $i++) {
+       if (isset($data['referencia' . $i])) {
+           $referencias[] = $data['referencia' . $i];
+           $descripciones[] = $data['descripcion' . $i];
+           $valoresUnidad[] = $data['valor_unidad' . $i];
+           $cantidades[] = $data['cantidad' . $i];
+       }
+   }
+   //dd($referencias,$descripciones,$valoresUnidad,$cantidades);
         $taller = new Taller;
 		$taller->nombre = $request->input('nombre');
 		$taller->referencia = $request->input('referencia');

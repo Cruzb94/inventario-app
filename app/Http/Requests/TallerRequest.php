@@ -23,17 +23,22 @@ class TallerRequest extends FormRequest
      */
     public function rules()
     {
-        return
-        [
-			'nombre' => 'required',
-			'referencia' => 'required',
-			'descripcion' => 'required',
-			'fecha' => 'required',
-			'cantidad' => 'required',
-			'valor_unidad' => 'required',
-			'valor_total' => 'required',
-			'observaciones' => 'required',
-			'reprocesos' => 'required',
+        $rules = [
+            'nombre' => 'required',
+            'fecha' => 'required',
+            'valor_total' => 'required',
+            'observaciones' => 'required',
+            'reprocesos' => 'required',
         ];
-    }
+    
+        // Itera sobre los campos y agrega reglas de validación requeridas para cada conjunto de datos
+        foreach ($this->all() as $key => $value) {
+            // Verifica si el campo es de la forma referenciaX, descripcionX, cantidadX, valor_unidadX
+            if (preg_match('/^(referencia|descripcion|cantidad|valor_unidad)\d+$/', $key)) {
+                $rules[$key] = 'required';
+            }
+        }
+    
+        return $rules;
+}
 }
