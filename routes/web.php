@@ -37,3 +37,5 @@ Route::resource('salidas', SalidasController::class);
 Route::resource('tallers', TallersController::class);
 Route::resource('ingresos', IngresosController::class);
 Route::resource('cuentabancos', CuentaBancosController::class);
+
+Route::get('/obtener-descripcion/{id}', [ProductosController::class, 'obtenerDescripcion']);

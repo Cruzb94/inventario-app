@@ -108,4 +108,19 @@ class ProductosController extends Controller
 
         return to_route('productos.index')->with('eliminar','ok3');
     }
+
+    public function obtenerDescripcion($id)
+    {
+        // Buscar el producto por su ID
+        $producto = Producto::find($id);
+
+        if (!$producto) {
+            // Si el producto no se encuentra, devolver un mensaje de error
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+
+        // Devolver la descripción del producto en formato JSON
+        return response()->json(['descripcion' => $producto->descripcion]);
+    }
+
 }

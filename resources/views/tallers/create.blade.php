@@ -109,14 +109,22 @@
             margin-bottom: 20px; /* Ajusta el espacio debajo de la línea */
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 @stop
 
 @section('js')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <script>
+        // Definición de la función eliminarCampo fuera del ámbito de $(document).ready()
+        function eliminarCampo(indice) {
+        $('#camposExtras').find(`[id^="producto${indice}"]`).remove();
+    }
     $(document).ready(function(){
+        
            
        
         var errors = {!! $errors->toJson() !!};
@@ -138,6 +146,8 @@
             calcularValorTotal();
         });
 
+
+
         function calcularValorTotal() {
             var total = 0;
             $('input[name^="cantidad"]').each(function() {
@@ -152,16 +162,20 @@
 
         function generarCampoHTML(indice) {
 
-            var campoHTML = 
-        `<hr class="my-4">
+            var campoHTML =
+         `<div id="producto${indice}"> 
+        <hr class="my-4">
+        <div class="d-flex justify-content-between">
         <h3>Producto ${indice}</h3>
+        <button type="button" class="btn btn-danger" onclick="eliminarCampo(${indice})"><i class="fa-solid fa-circle-xmark"></i></button>
+    </div>
         <div class="form-group row mt-4">
             <div class="col-sm-10">
                 <label class="form-label" for="referencia${indice}">Referencia ${indice}</label>
                 <select name="referencia${indice}" id="referencia${indice}" class="form-control">
                     <option value="" selected disabled>Seleccione un producto</option>`;
     
-    // Agregar opciones de productos al campo de selección
+    
     @foreach($productos as $producto)
         campoHTML += `<option value="{{ $producto->id }}">{{ $producto->referencia }}</option>`;
     @endforeach
@@ -186,12 +200,54 @@
                 <label class="form-label" for="valor_unidad${indice}">Valor por unidad ${indice}</label>
                 <input type="number" name="valor_unidad${indice}" id="valor_unidad${indice}" class="form-control" >
             </div>
-        </div>`;
+        </div>
+    </div>`;
     
     return campoHTML;
            
         }
+
+        
     });
 
+    
+
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   
+    function actualizarDescripcion(select, indice) {
+        var productoId = select.value;
+        fetch('/obtener-descripcion/' + productoId)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                var descripcionInput = document.querySelector('input[name="descripcion' + indice + '"]');
+                if (descripcionInput) {
+                    descripcionInput.value = data.descripcion;
+                } else {
+                    console.error("No se encontró el campo de descripción.");
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    }
+    
+    // Manejar cambios en todos los campos de referencia
+    document.addEventListener('change', function(event) {
+        var target = event.target;
+        if (target && target.tagName === 'SELECT' && target.name.startsWith('referencia')) {
+            var indice = target.name.replace('referencia', '');
+            actualizarDescripcion(target, indice);
+        }
+    });
+});
 </script>
 @stop

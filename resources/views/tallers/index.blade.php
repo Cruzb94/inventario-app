@@ -16,10 +16,7 @@
 				<th class=" bg-purple text-wwhite">id</th>
 				<th class=" bg-purple text-wwhite">nombre</th>
 				<th class=" bg-purple text-wwhite">referencia</th>
-				<th class=" bg-purple text-wwhite">descripcion</th>
 				<th class=" bg-purple text-wwhite">fecha</th>
-				<th class=" bg-purple text-wwhite">cantidad</th>
-				<th class=" bg-purple text-wwhite">valor_unidad</th>
 				<th class=" bg-purple text-wwhite">valor_total</th>
 				<th class=" bg-purple text-wwhite">observaciones</th>
 				<th class=" bg-purple text-wwhite">reprocesos</th>
@@ -32,12 +29,9 @@
 
 				<tr>
 					<td>{{ $taller->id }}</td>
-					<td>{{ $taller->nombre }}</td>
+					<td>{{ $taller->operario_id }}</td>
 					<td>{{ $taller->referencia }}</td>
-					<td>{{ $taller->descripcion }}</td>
 					<td>{{ $taller->fecha }}</td>
-					<td>{{ $taller->cantidad }}</td>
-					<td>{{ $taller->valor_unidad }}</td>
 					<td>{{ $taller->valor_total }}</td>
 					<td>{{ $taller->observaciones }}</td>
 					<td>{{ $taller->reprocesos }}</td>

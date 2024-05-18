@@ -56,7 +56,7 @@ class TallersController extends Controller
         
    $data = $request->all();
 
-dd($data);
+//dd($data);
    $referencias = [];
    $descripciones = [];
    $valoresUnidad = [];
@@ -64,13 +64,15 @@ dd($data);
 
 
    for ($i = 1; $i <= count($data) / 4; $i++) {
-       if (isset($data['referencia' . $i])) {
-           $referencias[] = $data['referencia' . $i];
-           $descripciones[] = $data['descripcion' . $i];
-           $valoresUnidad[] = $data['valor_unidad' . $i];
-           $cantidades[] = $data['cantidad' . $i];
-       }
-   }
+    if (isset($data['referencia' . $i])) {
+        $producto = Producto::findOrFail($data['referencia' . $i]);
+        $referencias[] = $producto->referencia; // Guardar la referencia en lugar del ID
+        $descripciones[] = $data['descripcion' . $i];
+        $valoresUnidad[] = $data['valor_unidad' . $i];
+        $cantidades[] = $data['cantidad' . $i];
+    }
+}
+//dd($referencias,$descripciones,$valoresUnidad,$cantidades);
 
         $referencia = array();
         array_push($referencia, $referencias);
