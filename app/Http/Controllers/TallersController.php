@@ -53,10 +53,10 @@ class TallersController extends Controller
      */
     public function store(TallerRequest $request)
     {
-        dd($request->all());
+        
    $data = $request->all();
 
-
+dd($data);
    $referencias = [];
    $descripciones = [];
    $valoresUnidad = [];
@@ -71,10 +71,16 @@ class TallersController extends Controller
            $cantidades[] = $data['cantidad' . $i];
        }
    }
-   //dd($referencias,$descripciones,$valoresUnidad,$cantidades);
+
+        $referencia = array();
+        array_push($referencia, $referencias);
+        array_push($referencia, $descripciones);
+        array_push($referencia, $valoresUnidad);
+        array_push($referencia, $cantidades);
+
         $taller = new Taller;
-		$taller->nombre = $request->input('nombre');
-		$taller->referencia = $request->input('referencia');
+		$taller->operario_id = $request->input('nombre');
+		$taller->referencia = json_encode( $referencia);
 		$taller->fecha = $request->input('fecha');
 		$taller->valor_total = $request->input('valor_total');
 		$taller->observaciones = $request->input('observaciones');
@@ -106,6 +112,11 @@ class TallersController extends Controller
     public function edit($id)
     {
         $taller = Taller::findOrFail($id);
+        $referencia = json_decode($taller->referencia);
+
+        dd($referencia);
+
+        $referencias = $referencia;
         $productos = Producto::all();
         $operarios = Operario::all();
         return view('tallers.edit',['taller'=>$taller, $productos, 'operarios'  =>$operarios]);
