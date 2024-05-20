@@ -21,7 +21,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(['route' => 'productos.store']) !!}
+                {!! Form::open(['route' => 'cuentabancos.store']) !!}
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         {{ Form::label('name', 'Nombre', ['class'=>'form-label']) }}
