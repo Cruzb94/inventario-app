@@ -25,16 +25,38 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         {{ Form::label('name', 'Nombre', ['class'=>'form-label']) }}
-                        {{ Form::text('name', null, array('class' => 'form-control')) }}
+                        {{ Form::text('name', null, ['class' => 'form-control']) }}
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        {{ Form::submit('Actualizar', array('class' => 'btn btn-bg-purple')) }}
+                        {{ Form::label('nit', 'Cedula-Nit', ['class'=>'form-label']) }}
+                        {{ Form::number('nit', null, array('class' => 'form-control')) }}
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('numero_contacto', 'Numero de contacto', ['class'=>'form-label']) }}
+                        {{ Form::number('numero_contacto', null, array('class' => 'form-control')) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('direccion', 'Direccion', ['class'=>'form-label']) }}
+                        {{ Form::text('direccion', null, array('class' => 'form-control')) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {{ Form::label('fecha_ingreso', 'Fecha de Ingreso', ['class'=>'form-label']) }}
+                        {{ Form::date('fecha_ingreso', null, array('class' => 'form-control')) }}
+                    </div>
+                </div>
+                <div class="form-group row mt-5">
+                    <div class="col-sm-10">
+                        {{ Form::submit('Actualizar', ['class' => 'btn btn-bg-purple']) }}
+                    </div>
+                </div>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -53,7 +75,7 @@
             padding: 30px;
         }
     </style>
-	 <link rel="stylesheet" href="{{asset('estilos/estilos.css')}}">
+    <link rel="stylesheet" href="{{asset('estilos/estilos.css')}}">
 @stop
 
 @section('js')

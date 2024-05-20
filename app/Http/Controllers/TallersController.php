@@ -115,13 +115,23 @@ class TallersController extends Controller
     {
         $taller = Taller::findOrFail($id);
         $referencia = json_decode($taller->referencia);
+    
+        [$referencias, $descripciones, $valoresUnidad, $cantidades] = $referencia;
 
-        dd($referencia);
+        $productosConReferencias = [];
+    foreach ($referencias as $ref) {
+        $producto = Producto::where('referencia', $ref)->first();
+        if ($producto) {
+            $productosConReferencias[] = $producto->id;
+        }
+    }
 
-        $referencias = $referencia;
+      // dd($productosConReferencias,$referencias);
+    
         $productos = Producto::all();
         $operarios = Operario::all();
-        return view('tallers.edit',['taller'=>$taller, $productos, 'operarios'  =>$operarios]);
+    
+        return view('tallers.edit', compact('taller', 'operarios', 'productosConReferencias', 'descripciones', 'valoresUnidad', 'cantidades','productos'));
     }
 
     /**
@@ -133,6 +143,7 @@ class TallersController extends Controller
      */
     public function update(TallerRequest $request, $id)
     {
+        dd($request->all());
         $taller = Taller::findOrFail($id);
 		$taller->nombre = $request->input('nombre');
 		$taller->referencia = $request->input('referencia');
