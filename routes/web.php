@@ -8,6 +8,7 @@ use App\Http\Controllers\SalidasController;
 use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\TallersController;
 use App\Http\Controllers\CuentaBancosController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -37,5 +38,6 @@ Route::resource('salidas', SalidasController::class);
 Route::resource('tallers', TallersController::class);
 Route::resource('ingresos', IngresosController::class);
 Route::resource('cuentabancos', CuentaBancosController::class);
+Route::resource('users', UserController::class);
 
 Route::get('/obtener-descripcion/{id}', [ProductosController::class, 'obtenerDescripcion']);
