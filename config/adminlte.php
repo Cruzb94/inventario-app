@@ -347,6 +347,7 @@ return [
                     'text' => 'Cuenta bancaria',
                     'icon' => "fas fa-university",
                     'url' => 'cuentabancos',
+                    'can' => 'viewAny',
                 ],
                 [
                     'text' => 'Usuarios',

@@ -87,13 +87,7 @@ Route::resource('ingresos', IngresosController::class)->middleware('admin');
 
 
 
-Route::resource('cuentabancos', CuentaBancosController::class)->except([
-    'destroy' 
-]);
-
-Route::delete('cuentabancos/{cuentabanco}', [CuentaBancosController::class, 'destroy'])
-    ->name('cuentabancos.destroy')
-    ->middleware('admin'); 
+Route::resource('cuentabancos', CuentaBancosController::class)->middleware('admin');
 
 
 Route::resource('users', UserController::class)->middleware('admin');
