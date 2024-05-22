@@ -64,7 +64,7 @@
 
                 <div class="form-group row">
                     <div class="col-sm-5">
-                        {{ Form::submit('Create', array('class' => 'btn btn-bg-purple')) }}
+                        {{ Form::submit('Create', array('class' => 'btn btn-bg-purple')) }} 
                     </div>
                 </div>
 

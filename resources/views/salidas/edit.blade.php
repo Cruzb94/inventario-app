@@ -20,7 +20,7 @@
                     @endforeach
                 </div>
                 @endif
-
+ 
                 {!! Form::model($salida, array('route' => array('salidas.update', $salida->id), 'method' => 'PUT')) !!}
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
