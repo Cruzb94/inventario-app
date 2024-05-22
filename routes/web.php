@@ -31,13 +31,71 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('productos', ProductosController::class);
-Route::resource('operarios', OperariosController::class);
-Route::resource('entradas', EntradasController::class);
-Route::resource('salidas', SalidasController::class);
-Route::resource('tallers', TallersController::class);
-Route::resource('ingresos', IngresosController::class);
-Route::resource('cuentabancos', CuentaBancosController::class);
-Route::resource('users', UserController::class);
+
+Route::resource('productos', ProductosController::class)->except([
+    'destroy' 
+]);
+Route::delete('productos/{producto}', [ProductosController::class, 'destroy'])
+    ->name('productos.destroy')
+    ->middleware('admin'); 
+
+
+Route::resource('operarios', OperariosController::class)->except([
+    'destroy' 
+]);
+
+Route::delete('operarios/{operario}', [OperariosController::class, 'destroy'])
+    ->name('operarios.destroy')
+    ->middleware('admin'); 
+
+
+
+
+Route::resource('entradas', EntradasController::class)->except([
+    'destroy' 
+]);
+
+Route::delete('entradas/{entrada}', [EntradasController::class, 'destroy'])
+    ->name('entradas.destroy')
+    ->middleware('admin'); 
+
+
+
+Route::resource('salidas', SalidasController::class)->except([
+    'destroy' 
+]);
+
+Route::delete('salidas/{salida}', [SalidasController::class, 'destroy'])
+    ->name('salidas.destroy')
+    ->middleware('admin'); 
+
+
+
+Route::resource('tallers', TallersController::class)->except([
+    'destroy' 
+]);
+
+Route::delete('tallers/{taller}', [TallersController::class, 'destroy'])
+    ->name('tallers.destroy')
+    ->middleware('admin'); 
+
+
+
+
+
+Route::resource('ingresos', IngresosController::class)->middleware('admin');
+
+
+
+Route::resource('cuentabancos', CuentaBancosController::class)->except([
+    'destroy' 
+]);
+
+Route::delete('cuentabancos/{cuentabanco}', [CuentaBancosController::class, 'destroy'])
+    ->name('cuentabancos.destroy')
+    ->middleware('admin'); 
+
+
+Route::resource('users', UserController::class)->middleware('admin');
 
 Route::get('/obtener-descripcion/{id}', [ProductosController::class, 'obtenerDescripcion']);

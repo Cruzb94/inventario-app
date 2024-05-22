@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Validation\Rule;
+
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,11 +25,19 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return
-        [
+        $userId = $this->route('user'); // Obtiene el ID del usuario de la ruta
+
+       // dd( $userId);
+    
+        return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($userId),
+            ],
             'role' => ['required', 'string']
         ];
     }

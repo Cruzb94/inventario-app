@@ -336,6 +336,7 @@ return [
                     'text' => 'Ingresos',
                     'icon' => "fas fa-money-check-alt",
                     'url' => 'ingresos',
+                    'can' => 'viewAny',
                 ],
                 [
                     'text' => 'Tallers',
@@ -346,6 +347,12 @@ return [
                     'text' => 'Cuenta bancaria',
                     'icon' => "fas fa-university",
                     'url' => 'cuentabancos',
+                ],
+                [
+                    'text' => 'Usuarios',
+                    'icon' => "fa-solid fa-user-group",
+                    'url' => 'users',
+                    'can' => 'viewAny',
                 ],
                 
 

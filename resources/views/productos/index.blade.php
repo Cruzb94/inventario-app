@@ -33,9 +33,11 @@
 					<td>
 						<div class="d-flex gap-2">
                             <a href="{{ route('productos.edit', [$producto->id]) }}" class="btn btn-primary mr-1">Edit</a>
+							@if(isAdmin())
 							{!! Form::open(['method' => 'DELETE', 'route' => ['productos.destroy', $producto->id], 'class' => 'formulario-eliminar']) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 						{!! Form::close() !!}
+						@endif
                         </div>
 					</td>
 				</tr>

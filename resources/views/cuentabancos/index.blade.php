@@ -33,9 +33,12 @@
 					<td>
 						<div class="d-flex gap-2">
                             <a href="{{ route('cuentabancos.edit', [$cuentabanco->id]) }}" class="btn btn-primary mr-1">Edit</a>
+							@if(isAdmin())
 							{!! Form::open(['method' => 'DELETE', 'route' => ['cuentabancos.destroy', $cuentabanco->id], 'class' => 'formulario-eliminar']) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+
 						{!! Form::close() !!}
+						@endif
                         </div>
 					</td>
 				</tr>

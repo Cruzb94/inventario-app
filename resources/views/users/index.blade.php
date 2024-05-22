@@ -1,50 +1,41 @@
-
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Entradas</h1>
+    <h1>Users</h1>
 @stop
 
 @section('content')
-<a href="{{ route('entradas.create') }}" class="btn btn-bg-purple mb-3">Create</a>
+<a href="{{ route('users.create') }}" class="btn btn-bg-purple mb-3">Create</a>
 
-<table id="entrada"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
+<table id="users"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 	<thead>
 		<tr>
-			<th class=" bg-purple text-wwhite">id</th>
-			<th class=" bg-purple text-wwhite">referencia</th>
-			<th class=" bg-purple text-wwhite">descripcion</th>
-			<th class=" bg-purple text-wwhite">fecha</th>
-			<th class=" bg-purple text-wwhite">cantidad</th>
-			<th class=" bg-purple text-wwhite">operario</th>
-			<th class=" bg-purple text-wwhite">reproceso</th>
+			<th class=" bg-purple text-wwhite">Nombre</th>
+			<th class=" bg-purple text-wwhite">Email</th>
+			<th class=" bg-purple text-wwhite">Rol</th>
 
+            
 			<th class=" bg-purple text-wwhite">Action</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($entradas as $entrada)
+		@foreach($users as $user)
 
 			<tr>
-				<td>{{ $entrada->id }}</td>
-				<td>{{ $entrada->producto->referencia }}</td>
-				<td>{{ $entrada->producto->descripcion }}</td>
-				<td>{{ $entrada->fecha }}</td>
-				<td>{{ $entrada->cantidad }}</td>
-				<td>{{ $entrada->operario->name }}</td>
-				<td>{{ $entrada->reproceso }}</td>
+				<td>{{ $user->name }}</td>
+				<td>{{ $user->email }}</td>
+				<td>{{ $user->role }}</td>
+
 
 				<td>
 					<div class="d-flex gap-2">
-						
-						<a href="{{ route('entradas.edit', [$entrada->id]) }}" class="btn btn-primary">Edit</a>
-						@if(isAdmin())
-						{!! Form::open(['method' => 'DELETE','route' => ['entradas.destroy', $entrada->id], 'class' => 'formulario-eliminar']) !!}
+					
+						<a href="{{ route('users.edit', [$user->id]) }}" class="btn btn-primary mr-1">Edit</a>
+						{!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id], 'class' => 'formulario-eliminar']) !!}
 							{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 						{!! Form::close() !!}
-						@endif
 					</div>
 				</td>
 			</tr>
@@ -52,7 +43,6 @@
 		@endforeach
 	</tbody>
 </table>
-
 @stop
 
 @section('css')
@@ -63,10 +53,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/4.0.0/css/fixedHeader.dataTables.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.dataTables.css">
 <link rel="stylesheet" href="{{asset('estilos/estilos.css')}}">
-
-<style>
-	
-</style>
 @stop
 
 @section('js')
@@ -90,7 +76,7 @@
 <script>  
 	// new DataTable('#articulos');
 	 $(document).ready(function() {
-	 $('#entrada').dataTable( {  
+	 $('#users').dataTable( {  
 	   //fixedHeader: true,
 	   //responsive: true,
 		"language": {
@@ -119,12 +105,11 @@
    </script>
 
    
-
 @if (session('create') == 'ok1')
 <script>
 	Swal.fire({
 			title: "Creado!",
-			text: "La Entrada se creo con exito.",
+			text: "El Usuario se creo con exito.",
 			icon: "success"
 });
 
@@ -138,7 +123,7 @@
 <script>
 	Swal.fire({
 			title: "Editado!",
-			text: "La Entrada se edito con exito.",
+			text: "El Usuario se edito con exito.",
 			icon: "success"
 });
 		
@@ -153,7 +138,7 @@
 <script>
 	Swal.fire({
 			title: "¡Eliminado!",
-			text: "La Entrada se elimino con exito.",
+			text: "El Usuario se elimino con exito.",
 			icon: "success"
 });
 
@@ -169,7 +154,7 @@ $('.formulario-eliminar').submit(function(e){
 	e.preventDefault();
 	Swal.fire({
 		title: "¿Esta seguro?",
-		text: "Esta entrada se eliminara definitivamente",
+		text: "Este Usuario se eliminara definitivamente",
 		icon: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#3085d6",
