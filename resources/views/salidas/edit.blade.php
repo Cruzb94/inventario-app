@@ -55,7 +55,7 @@
                 <div class="form-group row">
                     <div class="col-sm-10">
                         {{ Form::label('estatus', 'Estatus', ['class'=>'form-label']) }}
-                        {{ Form::select('estatus', ['' => 'Seleccione un Estatus', 'Entregados' => 'Entregados', 'Devuelvo al remitente' => 'Devuelvo al remitente'], $salida->estatsus, ['class' => 'form-control']) }}
+                        {{ Form::select('estatus', ['' => 'Seleccione un Estatus', 'Enviado' => 'Enviado', 'Entregados' => 'Entregados', 'Devuelvo al remitente' => 'Devuelvo al remitente'], $salida->estatsus, ['class' => 'form-control']) }}
                     </div>
                 </div>
 

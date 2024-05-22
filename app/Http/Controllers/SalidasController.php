@@ -47,14 +47,20 @@ class SalidasController extends Controller
     public function store(SalidaRequest $request)
     {
        // dd($request);
-        $salida = new Salida;
-		$salida->producto_id = $request->input('producto_id');
-		$salida->fecha = $request->input('fecha');
-		$salida->cantidad = $request->input('cantidad');
-		$salida->guia = $request->input('guia');
-		$salida->valor = $request->input('valor');
-		$salida->estatsus = $request->input('estatus');
-        $salida->save();
+       $salida = new Salida;
+       $salida->producto_id = $request->input('producto_id');
+       $salida->fecha = $request->input('fecha');
+       $salida->cantidad = $request->input('cantidad');
+       $salida->guia = $request->input('guia');
+       $salida->valor = $request->input('valor');
+       $salida->estatsus = $request->input('estatus');
+
+
+        if($salida->save()) {
+            $producto = Producto::findOrFail($request->input('producto_id'));
+            $producto->stock =  $producto->stock - $request->input('cantidad');
+            $producto->save();
+        }
 
         return to_route('salidas.index')->with('create','ok1');
     }
@@ -100,7 +106,12 @@ class SalidasController extends Controller
 		$salida->guia = $request->input('guia');
 		$salida->valor = $request->input('valor');
 		$salida->estatsus = $request->input('estatus');
-        $salida->save();
+      
+        if($salida->save()) {
+            $producto = Producto::findOrFail($request->input('producto_id'));
+            $producto->stock = $producto->stock - $request->input('cantidad');
+            $producto->save();
+        } 
 
         return to_route('salidas.index')->with('editar','ok2');
     }

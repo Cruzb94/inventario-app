@@ -50,14 +50,20 @@ class EntradasController extends Controller
      */
     public function store(EntradaRequest $request)
     {
+     
         $entrada = new Entrada;
 		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');
 		$entrada->cantidad = $request->input('cantidad');
 		$entrada->operario_id = $request->input('operario_id');
 		$entrada->reproceso = $request->input('reproceso');
-        $entrada->save();
 
+
+        if($entrada->save()) {
+            $producto = Producto::findOrFail($request->input('product_id'));
+            $producto->stock =  $producto->stock +  $request->input('cantidad');
+            $producto->save();
+        }
         return to_route('entradas.index')->with('create','ok1');
     }
 
@@ -102,7 +108,14 @@ class EntradasController extends Controller
 		$entrada->cantidad = $request->input('cantidad');
 		$entrada->operario_id = $request->input('operario_id');
 		$entrada->reproceso = $request->input('reproceso');
-        $entrada->save();
+      
+
+        if($entrada->save()) {
+            $producto = Producto::findOrFail($request->input('product_id'));
+            $producto->stock =  $producto->stock +  $request->input('cantidad');
+            $producto->save();
+        }
+        
 
         return to_route('entradas.index')->with('editar','ok2');
     }
