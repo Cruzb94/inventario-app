@@ -71,5 +71,6 @@
 @stop
 
 @section('js')
-    <script> console.log("¡Hola, estoy usando el paquete Laravel-AdminLTE!"); </script>
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 @stop

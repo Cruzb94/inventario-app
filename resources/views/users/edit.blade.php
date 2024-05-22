@@ -45,7 +45,7 @@
 
                 <div class="form-group row mt-5">
                     <div class="col-sm-10">
-                        {{ Form::submit('Actualizar', ['class' => 'btn btn-primary']) }}
+                        {{ Form::submit('Actualizar', ['class' => 'btn btn-bg-purple']) }}
                     </div>
                 </div>
 
@@ -73,4 +73,5 @@
 
 @section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 @stop
