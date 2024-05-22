@@ -9,6 +9,10 @@ class Operario extends Model
 {
     use HasFactory;
 
- 
+    public function taller()
+	{
+		return $this->hasMany('App\Models\Taller');
+	}
+
 
 }

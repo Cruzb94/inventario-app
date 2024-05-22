@@ -24,7 +24,8 @@ class TallersController extends Controller
      */
     public function index()
     {
-        $tallers= Taller::all();
+        $tallers= Taller::with('operario')->get();
+      
       
 
         return view('tallers.index', ['tallers'=>$tallers]);
@@ -100,7 +101,7 @@ class TallersController extends Controller
      */
     public function show($id)
     {
-        $taller = Taller::findOrFail($id);
+        $taller = Taller::findOrFail($id)->with('operario')->get();
         
         return view('tallers.show',['taller'=>$taller]);
     }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Taller extends Model
 {
     use HasFactory;
+
+    public function operario()
+	{
+		return $this->belongsTo('App\Models\Operario');
+	}
+
 }
