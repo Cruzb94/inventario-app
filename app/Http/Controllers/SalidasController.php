@@ -47,8 +47,14 @@ class SalidasController extends Controller
     public function store(SalidaRequest $request)
     {
        // dd($request);
+
+
+        $referencia = array();
+        array_push($referencia, $request->input('referencia'));
+        array_push($referencia, $request->input('cantidad'));
+    
        $salida = new Salida;
-       $salida->producto_id = $request->input('producto_id');
+       $salida->referencia = json_encode($referencia);
        $salida->fecha = $request->input('fecha');
        $salida->cantidad = $request->input('cantidad');
        $salida->guia = $request->input('guia');
@@ -56,11 +62,11 @@ class SalidasController extends Controller
        $salida->estatsus = $request->input('estatus');
 
 
-        if($salida->save()) {
+     /*   if($salida->save()) {
             $producto = Producto::findOrFail($request->input('producto_id'));
             $producto->stock =  $producto->stock - $request->input('cantidad');
             $producto->save();
-        }
+        } */
 
         return to_route('salidas.index')->with('create','ok1');
     }
