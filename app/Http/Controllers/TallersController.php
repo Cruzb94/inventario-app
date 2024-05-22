@@ -143,10 +143,32 @@ class TallersController extends Controller
      */
     public function update(TallerRequest $request, $id)
     {
-        dd($request->all());
+        $data = $request->all();
+        $referencias = [];
+        $descripciones = [];
+        $valoresUnidad = [];
+        $cantidades = [];
+
+
+        for ($i = 1; $i <= count($data) / 4; $i++) {
+            if (isset($data['referencia' . $i])) {
+                $producto = Producto::findOrFail($data['referencia' . $i]);
+                $referencias[] = $producto->referencia; // Guardar la referencia en lugar del ID
+                $descripciones[] = $data['descripcion' . $i];
+                $valoresUnidad[] = $data['valor_unidad' . $i];
+                $cantidades[] = $data['cantidad' . $i];
+            }
+        }
+
+        $referencia = array();
+        array_push($referencia, $referencias);
+        array_push($referencia, $descripciones);
+        array_push($referencia, $valoresUnidad);
+        array_push($referencia, $cantidades);
+
         $taller = Taller::findOrFail($id);
-		$taller->nombre = $request->input('nombre');
-		$taller->referencia = $request->input('referencia');
+		$taller->operario_id = $request->input('nombre');
+		$taller->referencia = json_encode( $referencia);
 		$taller->fecha = $request->input('fecha');
 		$taller->valor_total = $request->input('valor_total');
 		$taller->observaciones = $request->input('observaciones');
