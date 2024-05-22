@@ -10,10 +10,9 @@
    
 <a href="{{ route('tallers.create') }}" class="btn btn-bg-purple mb-3">Create</a>
 
-<table id="tallers"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
+<table id="tallers"  class=" table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead>
 			<tr>
-				<th class=" bg-purple text-wwhite">id</th>
 				<th class=" bg-purple text-wwhite">nombre</th>
 				<th class=" bg-purple text-wwhite">referencia</th>
 				<th class=" bg-purple text-wwhite">fecha</th>
@@ -28,9 +27,33 @@
 			@foreach($tallers as $taller)
 
 				<tr>
-					<td>{{ $taller->id }}</td>
 					<td>{{ $taller->operario_id }}</td>
-					<td>{{ $taller->referencia }}</td>
+					<td>
+						@php
+							$referencias = json_decode($taller->referencia);
+						@endphp
+						@if($referencias)
+							<div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
+								<strong>Referencia:</strong> {{ $referencias[0][0] }}<br>
+								<strong>Descripción:</strong> {{ $referencias[1][0] }}<br>
+								<strong>Cantidad:</strong> {{ $referencias[2][0] }}<br>
+								<strong>Valor:</strong> {{ $referencias[3][0] }}
+							</div>
+							@if(count($referencias[0]) > 1)
+								<div id="referencias-extra-{{ $taller->id }}" style="display: none;">
+									@for($i = 1; $i < count($referencias[0]); $i++)
+										<div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
+											<strong>Referencia:</strong> {{ $referencias[0][$i] }}<br>
+											<strong>Descripción:</strong> {{ $referencias[1][$i] }}<br>
+											<strong>Cantidad:</strong> {{ $referencias[2][$i] }}<br>
+											<strong>Valor:</strong> {{ $referencias[3][$i] }}
+										</div>
+									@endfor
+								</div>
+								<button class="btn btn-link text-purple" style="color: #6f42c1; font-weight: bold;" onclick="toggleReferencias({{ $taller->id }})" id="toggle-button-{{ $taller->id }}">Ver más</button>
+								@endif
+						@endif
+					</td>
 					<td>{{ $taller->fecha }}</td>
 					<td>{{ $taller->valor_total }}</td>
 					<td>{{ $taller->observaciones }}</td>
@@ -182,5 +205,20 @@ $('.formulario-eliminar').submit(function(e){
 });
 });
 
+</script>
+
+<script>
+    function toggleReferencias(id) {
+        var extraReferencias = document.getElementById('referencias-extra-' + id);
+        var toggleButton = document.getElementById('toggle-button-' + id);
+
+        if (extraReferencias.style.display === 'none') {
+            extraReferencias.style.display = 'block';
+            toggleButton.textContent = 'Ocultar';
+        } else {
+            extraReferencias.style.display = 'none';
+            toggleButton.textContent = 'Ver más';
+        }
+    }
 </script>
 @stop
