@@ -23,14 +23,26 @@ class SalidaRequest extends FormRequest
      */
     public function rules()
     {
-        return
-        [
+        $rules = [
             'fecha' => 'required',
-            'cantidad' => 'required',
             'guia' => 'required',
             'valor' => 'required',
             'estatus' => 'required',
-           // 'producto_id' => 'required', // Agregamos la validación para product_id
         ];
+    
+        // Verifica si hay datos para referencia y cantidad
+        if ($this->filled('referencia') && $this->filled('cantidad')) {
+            // Obtén la cantidad de elementos en los arreglos referencia y cantidad
+            $count = count($this->input('referencia'));
+    
+            // Itera sobre los elementos y agrega reglas de validación requeridas para cada conjunto de datos
+            for ($i = 0; $i < $count; $i++) {
+                // Añade reglas de validación para cada conjunto de datos
+                $rules['referencia.' . $i] = 'required';
+                $rules['cantidad.' . $i] = 'required|numeric|min:1'; // Por ejemplo, requiere que la cantidad sea un número y mayor o igual a 1
+            }
+        }
+    
+        return $rules;
     }
 }
