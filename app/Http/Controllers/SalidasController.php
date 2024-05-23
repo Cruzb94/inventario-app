@@ -24,6 +24,7 @@ class SalidasController extends Controller
     public function index()
     {
         $salidas= Salida::all();
+       // dd($salidas);
         return view('salidas.index', ['salidas'=>$salidas]);
     }
 
@@ -46,7 +47,7 @@ class SalidasController extends Controller
      */
     public function store(SalidaRequest $request)
     {
-        dd($request->all());
+       // dd($request->all());
 
 
         $referencia = array();
@@ -107,6 +108,7 @@ class SalidasController extends Controller
      */
     public function update(SalidaRequest $request, $id)
     {
+           dd($request->all());
         $salida = Salida::findOrFail($id);
 		$salida->producto_id = $request->input('producto_id');
 		$salida->fecha = $request->input('fecha');

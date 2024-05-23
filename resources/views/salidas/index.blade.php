@@ -9,45 +9,60 @@
 @section('content')
 <a href="{{ route('salidas.create') }}" class="btn btn-bg-purple mb-3">Create</a>
 
-	<table id="salida"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
-		<thead>
-			<tr>
-
-				<th class=" bg-purple text-wwhite">referencia</th>
-				<th class=" bg-purple text-wwhite">fecha</th>
-				<th class=" bg-purple text-wwhite">guia</th>
-				<th class=" bg-purple text-wwhite">valor</th>
-				<th class=" bg-purple text-wwhite">estatus</th>
-
-				<th class=" bg-purple text-wwhite">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($salidas as $salida)
-
-				<tr>
-					<td>{{ $salida->referencia}}</td>
-					<td>{{ $salida->fecha }}</td>
-					<td>{{ $salida->guia }}</td>
-					<td>{{ $salida->valor }}</td>
-					<td>{{ $salida->estatsus }}</td>
-
-					<td>
-						<div class="d-flex gap-2">
-
-                            <a href="{{ route('salidas.edit', [$salida->id]) }}" class="btn btn-primary">Edit</a>
-							@if(isAdmin())
+<table id="salida" class=" table-bordered shadow-lg mt-4" style="width:100%">
+    <thead>
+        <tr>
+            <th class="bg-purple text-white">referencia</th>
+            <th class="bg-purple text-white">fecha</th>
+            <th class="bg-purple text-white">guia</th>
+            <th class="bg-purple text-white">valor</th>
+            <th class="bg-purple text-white">estatus</th>
+            <th class="bg-purple text-white">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($salidas as $salida)
+            <tr>
+                <td>
+                    @php
+                        $referencias = json_decode($salida->referencia, true);
+                    @endphp
+                    @if($referencias)
+                        <div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
+                            <strong>Referencia:</strong> {{ $referencias[0][0] }}<br>
+                            <strong>Cantidad:</strong> {{ $referencias[1][0] }}
+                        </div>
+                        @if(count($referencias[0]) > 1)
+                            <div id="referencias-extra-{{ $salida->id }}" style="display: none;">
+                                @for($i = 1; $i < count($referencias[0]); $i++)
+                                    <div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
+                                        <strong>Referencia:</strong> {{ $referencias[0][$i] }}<br>
+                                        <strong>Cantidad:</strong> {{ $referencias[1][$i] }}
+                                    </div>
+                                @endfor
+                            </div>
+                            <button class="btn btn-link text-purple" style="color: #6f42c1; font-weight: bold;" onclick="toggleReferencias({{ $salida->id }})" id="toggle-button-{{ $salida->id }}">Ver más</button>
+                        @endif
+                    @endif
+                </td>
+                <td>{{ $salida->fecha }}</td>
+                <td>{{ $salida->guia }}</td>
+                <td>{{ $salida->valor }}</td>
+                <td>{{ $salida->estatsus }}</td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('salidas.edit', [$salida->id]) }}" class="btn btn-primary">Edit</a>
+                        @if(isAdmin())
                             {!! Form::open(['method' => 'DELETE','route' => ['salidas.destroy', $salida->id], 'class' => 'formulario-eliminar']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
-							@endif
-                        </div>
-					</td>
-				</tr>
-
-			@endforeach
-		</tbody>
-	</table>
+                        @endif
+                    </div>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
 @stop
 
@@ -182,6 +197,18 @@
 </script>
 
 
-
+<script>
+    function toggleReferencias(id) {
+        const referenciasExtra = document.getElementById(`referencias-extra-${id}`);
+        const button = document.getElementById(`toggle-button-${id}`);
+        if (referenciasExtra.style.display === "none") {
+            referenciasExtra.style.display = "block";
+            button.textContent = "Ver menos";
+        } else {
+            referenciasExtra.style.display = "none";
+            button.textContent = "Ver más";
+        }
+    }
+</script>
 
 @stop
