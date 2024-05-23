@@ -12,11 +12,9 @@
 	<table id="salida"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead>
 			<tr>
-				<th class=" bg-purple text-wwhite">id</th>
+
 				<th class=" bg-purple text-wwhite">referencia</th>
-				<th class=" bg-purple text-wwhite">descripcion</th>
 				<th class=" bg-purple text-wwhite">fecha</th>
-				<th class=" bg-purple text-wwhite">cantidad</th>
 				<th class=" bg-purple text-wwhite">guia</th>
 				<th class=" bg-purple text-wwhite">valor</th>
 				<th class=" bg-purple text-wwhite">estatus</th>
@@ -28,11 +26,8 @@
 			@foreach($salidas as $salida)
 
 				<tr>
-					<td>{{ $salida->id }}</td>
-					<td>{{ $salida->producto->referencia }}</td>
-					<td>{{ $salida->producto->descripcion }}</td>
+					<td>{{ $salida->referencia}}</td>
 					<td>{{ $salida->fecha }}</td>
-					<td>{{ $salida->cantidad }}</td>
 					<td>{{ $salida->guia }}</td>
 					<td>{{ $salida->valor }}</td>
 					<td>{{ $salida->estatsus }}</td>

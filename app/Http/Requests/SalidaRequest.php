@@ -30,7 +30,7 @@ class SalidaRequest extends FormRequest
             'guia' => 'required',
             'valor' => 'required',
             'estatus' => 'required',
-            'producto_id' => 'required', // Agregamos la validación para product_id
+           // 'producto_id' => 'required', // Agregamos la validación para product_id
         ];
     }
 }

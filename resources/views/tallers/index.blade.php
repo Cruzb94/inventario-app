@@ -27,7 +27,7 @@
 			@foreach($tallers as $taller)
 
 				<tr>
-					<td>{{ $taller->operario_id }}</td>
+					<td>{{ $taller->operario->name }}</td>
 					<td>
 						@php
 							$referencias = json_decode($taller->referencia);

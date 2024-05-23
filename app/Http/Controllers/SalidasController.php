@@ -46,20 +46,22 @@ class SalidasController extends Controller
      */
     public function store(SalidaRequest $request)
     {
-       // dd($request);
+        dd($request->all());
 
 
         $referencia = array();
         array_push($referencia, $request->input('referencia'));
         array_push($referencia, $request->input('cantidad'));
+
+        //dd( $referencia );
     
        $salida = new Salida;
        $salida->referencia = json_encode($referencia);
        $salida->fecha = $request->input('fecha');
-       $salida->cantidad = $request->input('cantidad');
        $salida->guia = $request->input('guia');
        $salida->valor = $request->input('valor');
        $salida->estatsus = $request->input('estatus');
+       $salida->save();
 
 
      /*   if($salida->save()) {
