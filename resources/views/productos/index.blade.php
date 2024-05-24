@@ -13,7 +13,7 @@
 	<table id="procuctos"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead >
 			<tr >
-				<th class=" bg-purple text-wwhite">id</th>
+
 				<th class=" bg-purple text-wwhite">referencia</th>
 				<th class=" bg-purple text-wwhite">descripcion</th>
 				<th class=" bg-purple text-wwhite">stock</th>
@@ -25,7 +25,7 @@
 			@foreach($productos as $producto)
 
 				<tr>
-					<td>{{ $producto->id }}</td>
+
 					<td>{{ $producto->referencia }}</td>
 					<td>{{ $producto->descripcion }}</td>
 					<td>{{ $producto->stock }}</td>

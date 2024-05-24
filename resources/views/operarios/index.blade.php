@@ -12,7 +12,7 @@
 <table id="operario"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 	<thead>
 		<tr>
-			<th class=" bg-purple text-wwhite">id</th>
+
 			<th class=" bg-purple text-wwhite">name</th>
 			<th class=" bg-purple text-wwhite">Cedula-Nit</th>
 			<th class=" bg-purple text-wwhite">Numero de contacto</th>
@@ -26,7 +26,7 @@
 		@foreach($operarios as $operario)
 
 			<tr>
-				<td>{{ $operario->id }}</td>
+
 				<td>{{ $operario->name }}</td>
 				<td>{{ $operario->nit }}</td>
 				<td>{{ $operario->numero_contacto }}</td>

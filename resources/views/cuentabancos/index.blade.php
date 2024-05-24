@@ -13,7 +13,7 @@
 	<table id="banco"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead >
 			<tr >
-				<th class=" bg-purple text-wwhite">id</th>
+
 				<th class=" bg-purple text-wwhite">Nombre</th>
 				<th class=" bg-purple text-wwhite">Nombre de Banco</th>
 				<th class=" bg-purple text-wwhite">Nro.Cuenta</th>
@@ -25,7 +25,7 @@
 			@foreach($cuentabancos as $cuentabanco)
 
 				<tr>
-					<td>{{ $cuentabanco->id }}</td>
+
 					<td>{{ $cuentabanco->name }}</td>
 					<td>{{ $cuentabanco->nombre_banco }}</td>
 					<td>{{ $cuentabanco->nro_cuenta }}</td>

@@ -13,7 +13,7 @@
 	<table id="ingresos"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead>
 			<tr>
-				<th  class=" bg-purple text-wwhite">id</th>
+
 				<th  class=" bg-purple text-wwhite">fecha</th>
 				<th  class=" bg-purple text-wwhite">cuenta_bancolombia</th>
 				<th  class=" bg-purple text-wwhite">nequi</th>
@@ -22,12 +22,13 @@
 
 				<th  class=" bg-purple text-wwhite">Action</th>
 			</tr>
+			
 		</thead>
 		<tbody>
 			@foreach($ingresos as $ingreso)
 
 				<tr>
-					<td>{{ $ingreso->id }}</td>
+
 					<td>{{ $ingreso->fecha }}</td>
 					<td>{{ $ingreso->cuenta_bancolombia }}</td>
 					<td>{{ $ingreso->nequi }}</td>
@@ -47,6 +48,14 @@
 
 			@endforeach
 		</tbody>
+		<tfoot>
+            <tr>
+                <th colspan="2" class="text-right">Total:</th>
+                <th id="total-nequi"></th>
+                <th id="total-efectivo"></th>
+                <th colspan="2"></th>
+            </tr>
+        </tfoot>
 	</table>
 @stop
 
@@ -96,8 +105,25 @@
 			   }
 		   },
    
-		 "lengthMenu": [ [5, 10, 50, -1], [5, 10, 50, 100] ],
+		   "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+        "pageLength": 25, // Establece el valor predeterminado a 25
 		   "ordering": false,
+		   "footerCallback": function (row, data, start, end, display) {
+            var api = this.api();
+
+            // Total over all pages
+            var totalNequi = api.column(2).data().reduce(function (a, b) {
+                return parseFloat(a) + parseFloat(b);
+            }, 0);
+
+            var totalEfectivo = api.column(3).data().reduce(function (a, b) {
+                return parseFloat(a) + parseFloat(b);
+            }, 0);
+
+            // Update footer
+            $(api.column(2).footer()).html(totalNequi.toFixed(2));
+            $(api.column(3).footer()).html(totalEfectivo.toFixed(2));
+        }
 	 
 	 
 
