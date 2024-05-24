@@ -62,15 +62,22 @@ class SalidasController extends Controller
        $salida->guia = $request->input('guia');
        $salida->valor = $request->input('valor');
        $salida->estatsus = $request->input('estatus');
-       $salida->save();
 
+      // if($salida->save()) {
+        for ($i=0; $i < count($request->input('referencia')) ; $i++) { 
+            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
 
-     /*   if($salida->save()) {
-            $producto = Producto::findOrFail($request->input('producto_id'));
-            $producto->stock =  $producto->stock - $request->input('cantidad');
-            $producto->save();
-        } */
-
+            if($request->input('cantidad')[$i] > $producto->stock) {
+                $producto->stock =  $producto->stock - $request->input('cantidad')[$i];
+                $producto->save();
+            } else {
+                return to_route('salidas.index')->with('error','Cantidad es mayor al stock');
+            }
+          
+        }
+           
+        
+        $salida->save();
         return to_route('salidas.index')->with('create','ok1');
     }
 
@@ -108,20 +115,34 @@ class SalidasController extends Controller
      */
     public function update(SalidaRequest $request, $id)
     {
-           dd($request->all());
+
+        $referencia = array();
+        array_push($referencia, $request->input('referencia'));
+        array_push($referencia, $request->input('cantidad'));
+
+    
         $salida = Salida::findOrFail($id);
-		$salida->producto_id = $request->input('producto_id');
-		$salida->fecha = $request->input('fecha');
-		$salida->cantidad = $request->input('cantidad');
-		$salida->guia = $request->input('guia');
-		$salida->valor = $request->input('valor');
-		$salida->estatsus = $request->input('estatus');
-      
-        if($salida->save()) {
-            $producto = Producto::findOrFail($request->input('producto_id'));
-            $producto->stock = $producto->stock - $request->input('cantidad');
-            $producto->save();
-        } 
+		$salida->referencia = json_encode($referencia);
+       $salida->fecha = $request->input('fecha');
+       $salida->guia = $request->input('guia');
+       $salida->valor = $request->input('valor');
+       $salida->estatsus = $request->input('estatus');
+
+
+       for ($i=0; $i < count($request->input('referencia')) ; $i++) { 
+            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+
+            if($request->input('cantidad')[$i] > $producto->stock) {
+                $producto->stock =  $producto->stock - $request->input('cantidad')[$i];
+                $producto->save();
+            } else {
+                return to_route('salidas.index')->with('error','Cantidad es mayor al stock');
+            }
+            
+        }
+       
+    
+    $salida->save();
 
         return to_route('salidas.index')->with('editar','ok2');
     }
