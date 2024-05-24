@@ -139,6 +139,7 @@ function updateReferenciaLabels() {
         }
     });
 }
+
 </script>
 
 
@@ -182,4 +183,16 @@ function updateReferenciaLabels() {
 @stop
 
 @section('js')
+
+
+@if (session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: '{{ session('error') }}',
+});
+</script>
+@endif
+
 @stop

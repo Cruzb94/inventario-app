@@ -64,16 +64,15 @@ class SalidasController extends Controller
        $salida->estatsus = $request->input('estatus');
 
       // if($salida->save()) {
-        for ($i=0; $i < count($request->input('referencia')) ; $i++) { 
+        for ($i = 0; $i < count($request->input('referencia')); $i++) {
             $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
-
-            if($request->input('cantidad')[$i] > $producto->stock) {
+    
+            if ($request->input('cantidad')[$i] > $producto->stock) {
+                return redirect()->route('salidas.create')->with('error', ' La Cantidad es mayor al inventario disponible');
+            } else {
                 $producto->stock =  $producto->stock - $request->input('cantidad')[$i];
                 $producto->save();
-            } else {
-                return to_route('salidas.index')->with('error','Cantidad es mayor al stock');
             }
-          
         }
            
         
@@ -129,17 +128,16 @@ class SalidasController extends Controller
        $salida->estatsus = $request->input('estatus');
 
 
-       for ($i=0; $i < count($request->input('referencia')) ; $i++) { 
-            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+       for ($i = 0; $i < count($request->input('referencia')); $i++) {
+        $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
 
-            if($request->input('cantidad')[$i] > $producto->stock) {
-                $producto->stock =  $producto->stock - $request->input('cantidad')[$i];
-                $producto->save();
-            } else {
-                return to_route('salidas.index')->with('error','Cantidad es mayor al stock');
-            }
-            
+        if ($request->input('cantidad')[$i] > $producto->stock) {
+            return redirect()->route('salidas.edit', $id)->with('error', ' La Cantidad es mayor al inventario disponible');
+        } else {
+            $producto->stock = $producto->stock - $request->input('cantidad')[$i];
+            $producto->save();
         }
+    }
        
     
     $salida->save();
