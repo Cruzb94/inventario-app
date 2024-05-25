@@ -24,7 +24,7 @@
                 {!! Form::open(['route' => 'entradas.store']) !!}
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
-                        {{ Form::label('product_id', 'Producto', ['class'=>'form-label']) }}
+                        {{ Form::label('product_id', 'Referencia', ['class'=>'form-label']) }}
                         {{ Form::select('product_id', $productos->pluck('descripcion', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione un producto']) }}
                     </div>
                 </div>

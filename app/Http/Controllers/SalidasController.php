@@ -114,6 +114,7 @@ class SalidasController extends Controller
      */
     public function update(SalidaRequest $request, $id)
     {
+       // dd($request->all());
 
         $referencia = array();
         array_push($referencia, $request->input('referencia'));
@@ -126,10 +127,12 @@ class SalidasController extends Controller
        $salida->guia = $request->input('guia');
        $salida->valor = $request->input('valor');
        $salida->estatsus = $request->input('estatus');
+       
 
 
        for ($i = 0; $i < count($request->input('referencia')); $i++) {
         $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+        
 
         if ($request->input('cantidad')[$i] > $producto->stock) {
             return redirect()->route('salidas.edit', $id)->with('error', ' La Cantidad es mayor al inventario disponible');

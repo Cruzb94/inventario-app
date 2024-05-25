@@ -24,7 +24,7 @@
                 {!! Form::model($entrada, ['route' => ['entradas.update', $entrada->id], 'method' => 'PUT']) !!}
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
-                        {{ Form::label('product_id', 'Producto', ['class'=>'form-label']) }}
+                        {{ Form::label('product_id', 'Referencia', ['class'=>'form-label']) }}
                         {{ Form::select('product_id', $productos->pluck('descripcion', 'id'), $entrada->producto_id, ['class' => 'form-control', 'placeholder' => 'Seleccione un producto']) }}
                     </div>
                 </div>
@@ -40,6 +40,7 @@
                     <div class="col-sm-10">
                         {{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
                         {{ Form::number('cantidad', null, ['class' => 'form-control']) }}
+                        {{ Form::hidden('cantidad_original', null, ['id' => 'cantidad_original']) }}
                     </div>
                 </div>
 

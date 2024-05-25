@@ -88,9 +88,16 @@ class EntradasController extends Controller
     public function edit($id)
     {
         $entrada = Entrada::findOrFail($id);
+        
+
+        if (!$entrada->cantidad_original) {
+            $entrada->cantidad_original = $entrada->cantidad;
+        }
+        
         $productos = Producto::all();
-        $operarios= Operario::all();
-        return view('entradas.edit',['entrada'=>$entrada, 'productos'=>$productos,'operarios'=>$operarios]);
+        $operarios = Operario::all();
+        
+        return view('entradas.edit', compact('entrada', 'productos', 'operarios'));
     }
 
     /**
@@ -102,6 +109,7 @@ class EntradasController extends Controller
      */
     public function update(EntradaRequest $request, $id)
     {
+        dd($request->all());
         $entrada = Entrada::findOrFail($id);
 		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');

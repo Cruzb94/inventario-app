@@ -49,6 +49,7 @@
                        <div class="col-sm-10 mt-2">
                            {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
                            {{ Form::number('cantidad[]', $referencias[1][$i], ['class' => 'form-control']) }}
+                           {{ Form::hidden('cantidad_original[]', $referencias[1][$i]) }}
                        </div>
                     </div>
                    </div>
