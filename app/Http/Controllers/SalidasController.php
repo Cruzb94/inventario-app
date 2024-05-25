@@ -114,6 +114,7 @@ class SalidasController extends Controller
      */
     public function update(SalidaRequest $request, $id)
     {
+       // dd($request->all());
 
         $referencia = array();
         array_push($referencia, $request->input('referencia'));
@@ -121,27 +122,26 @@ class SalidasController extends Controller
 
     
         $salida = Salida::findOrFail($id);
-		
-        $referencias_saved =  json_decode($salida->referencia);
 
-      for ($i = 0; $i < count($request->input('referencia')); $i++) {
-        $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+        for ($i = 0; $i < count($request->input('referencia')); $i++) {
+            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+            
 
-        if ($request->input('cantidad')[$i] > $producto->stock) {
-            return redirect()->route('salidas.edit', $id)->with('error', ' La Cantidad es mayor al inventario disponible');
-        } else {
-            $total = $producto->stock + $request->input('cantidad_original')[$i];
-            $producto->stock =  $total - $request->input('cantidad')[$i];
-            $producto->save();
-        }
-    } 
+            if ($request->input('cantidad')[$i] > $producto->stock) {
+                return redirect()->route('salidas.edit', $id)->with('error', ' La Cantidad es mayor al inventario disponible');
+            } else {
+                $total = $producto->stock + $request->input('cantidad_original')[$i];
+                $producto->stock =  $total - $request->input('cantidad')[$i];
+                $producto->save();
+            }
+        } 
        
-    $salida->referencia = json_encode($referencia);
-    $salida->fecha = $request->input('fecha');
-    $salida->guia = $request->input('guia');
-    $salida->valor = $request->input('valor');
-    $salida->estatsus = $request->input('estatus');
-    $salida->save();
+        $salida->referencia = json_encode($referencia);
+        $salida->fecha = $request->input('fecha');
+        $salida->guia = $request->input('guia');
+        $salida->valor = $request->input('valor');
+        $salida->estatsus = $request->input('estatus');
+        $salida->save();
 
         return to_route('salidas.index')->with('editar','ok2');
     }
