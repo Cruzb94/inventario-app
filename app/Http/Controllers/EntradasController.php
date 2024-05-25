@@ -109,7 +109,7 @@ class EntradasController extends Controller
      */
     public function update(EntradaRequest $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
         $entrada = Entrada::findOrFail($id);
 		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');
