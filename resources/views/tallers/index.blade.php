@@ -54,7 +54,7 @@
 								@endif
 						@endif
 					</td>
-					<td>{{ $taller->fecha }}</td>
+					<td>{{ Carbon\Carbon::parse($taller->fecha)->format('d/m/Y') }}</td>
 					<td>{{ $taller->valor_total }}</td>
 					<td>{{ $taller->observaciones }}</td>
 					<td>{{ $taller->reprocesos }}</td>

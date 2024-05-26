@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Salida;
 use App\Models\Producto;
 use App\Http\Requests\SalidaRequest;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SalidasController extends Controller
 {
@@ -21,11 +23,19 @@ class SalidasController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $salidas= Salida::all();
-       // dd($salidas);
-        return view('salidas.index', ['salidas'=>$salidas]);
+        $query = Salida::query();
+    
+        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
+            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+        }
+    
+        $salidas = $query->get();
+
+ 
+    
+        return view('salidas.index', ['salidas' => $salidas]);
     }
 
     /**

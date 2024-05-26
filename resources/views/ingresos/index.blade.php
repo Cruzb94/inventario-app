@@ -13,7 +13,6 @@
 	<table id="ingresos"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead>
 			<tr>
-
 				<th  class=" bg-purple text-wwhite">fecha</th>
 				<th  class=" bg-purple text-wwhite">cuenta_bancolombia</th>
 				<th  class=" bg-purple text-wwhite">nequi</th>
@@ -28,8 +27,7 @@
 			@foreach($ingresos as $ingreso)
 
 				<tr>
-
-					<td>{{ $ingreso->fecha }}</td>
+					<td>{{ Carbon\Carbon::parse($ingreso->fecha)->format('d/m/Y') }}</td>
 					<td>{{ $ingreso->cuenta_bancolombia }}</td>
 					<td>{{ $ingreso->nequi }}</td>
 					<td>{{ $ingreso->efectivo }}</td>

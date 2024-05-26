@@ -23,6 +23,7 @@
 
                 {!! Form::open(['route' => 'ingresos.store']) !!}
 
+
                 <div class="form-group row">
                     <div class="col-sm-10">
                     {{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
