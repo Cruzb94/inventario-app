@@ -26,7 +26,7 @@ class IngresoRequest extends FormRequest
         return
         [
 			'fecha' => 'required',
-			'cuenta_bancolombia' => 'required',
+			'cuenta_banco_id' => 'required',
 			'nequi' => 'required',
 			'efectivo' => 'required',
 			'descripcion' => 'required',

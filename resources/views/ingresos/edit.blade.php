@@ -31,8 +31,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        {{ Form::label('cuenta_bancolombia', 'Cuenta_bancolombia', ['class'=>'form-label']) }}
-                        {{ Form::text('cuenta_bancolombia', null, array('class' => 'form-control')) }}
+                        {{ Form::label('cuenta_banco_id', 'Cuenta', ['class'=>'form-label']) }}
+                        {{ Form::select('cuenta_banco_id',$cuentabancos->pluck('name', 'id'), $ingreso->cuenta_id, array('class' => 'form-control')) }}
                     </div>
                 </div>
                 <div class="form-group row">

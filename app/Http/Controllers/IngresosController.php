@@ -48,7 +48,7 @@ class IngresosController extends Controller
     {
         $ingreso = new Ingreso;
 		$ingreso->fecha = $request->input('fecha');
-		$ingreso->cuenta_banco_id = $request->input('cuenta_banco_id');
+		$ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
@@ -77,8 +77,11 @@ class IngresosController extends Controller
      */
     public function edit($id)
     {
-        $ingreso = Ingreso::findOrFail($id)->with('cuenta')->get();;
-        return view('ingresos.edit',['ingreso'=>$ingreso]);
+        $cuentabancos= CuentaBanco::all();
+        $ingreso = Ingreso::where('id',$id)->with('cuenta')->first();
+
+      
+        return view('ingresos.edit',compact('ingreso', 'cuentabancos'));
     }
 
     /**
@@ -92,7 +95,7 @@ class IngresosController extends Controller
     {
         $ingreso = Ingreso::findOrFail($id);
 		$ingreso->fecha = $request->input('fecha');
-        $ingreso->cuenta_banco_id = $request->input('cuenta_banco_id');
+        $ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');

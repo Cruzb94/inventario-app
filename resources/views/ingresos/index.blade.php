@@ -28,7 +28,7 @@
 
 				<tr>
 					<td>{{ Carbon\Carbon::parse($ingreso->fecha)->format('d/m/Y') }}</td>
-					<td>{{ $ingreso->cuenta_bancolombia }}</td>
+					<td>{{ $ingreso->cuenta->name  }} <strong>-</strong> {{ $ingreso->cuenta->nro_cuenta  }} </td>
 					<td>{{ $ingreso->nequi }}</td>
 					<td>{{ $ingreso->efectivo }}</td>
 					<td>{{ $ingreso->descripcion }}</td>
