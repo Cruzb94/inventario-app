@@ -9,4 +9,9 @@ class CuentaBanco extends Model
 {
     use HasFactory;
 
+    public function ingresos()
+	{
+		return $this->hasMany('App\Models\Ingreso');
+	}
+
 }

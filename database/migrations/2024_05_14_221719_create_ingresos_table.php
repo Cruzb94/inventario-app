@@ -14,13 +14,15 @@ class CreateIngresosTable extends Migration
     public function up()
     {
         Schema::create('ingresos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 			$table->date('fecha');
-			$table->string('cuenta_bancolombia');
+			$table->unsignedBigInteger('cuenta_id');
 			$table->string('nequi');
 			$table->float('efectivo');
 			$table->string('descripcion');
             $table->timestamps();
+
+            $table->foreign('cuenta_id')->references('id')->on('cuenta_bancos');
         });
     }
 

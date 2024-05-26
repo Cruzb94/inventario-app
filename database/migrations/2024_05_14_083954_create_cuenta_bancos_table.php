@@ -14,7 +14,7 @@ class CreateCuentaBancosTable extends Migration
     public function up()
     {
         Schema::create('cuenta_bancos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
 			$table->string('name');
 			$table->string('nombre_banco');
 			$table->string('nro_cuenta');

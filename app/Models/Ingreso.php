@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ingreso extends Model
 {
     use HasFactory;
+
+    public function cuenta()
+	{
+		return $this->belongsTo('App\Models\CuentaBanco');
+	}
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Ingreso;
+use App\Models\CuentaBanco;
 use App\Http\Requests\IngresoRequest;
 
 class IngresosController extends Controller
@@ -22,7 +23,7 @@ class IngresosController extends Controller
      */
     public function index()
     {
-        $ingresos= Ingreso::all();
+        $ingresos= Ingreso::with('cuenta')->get();
         return view('ingresos.index', ['ingresos'=>$ingresos]);
     }
 
@@ -33,7 +34,8 @@ class IngresosController extends Controller
      */
     public function create()
     {
-        return view('ingresos.create');
+        $cuentas= CuentaBanco::all();
+        return view('ingresos.create', ['cuentabancos'=>$cuentas]);
     }
 
     /**
@@ -46,7 +48,7 @@ class IngresosController extends Controller
     {
         $ingreso = new Ingreso;
 		$ingreso->fecha = $request->input('fecha');
-		$ingreso->cuenta_bancolombia = $request->input('cuenta_bancolombia');
+		$ingreso->cuenta_banco_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
@@ -63,7 +65,7 @@ class IngresosController extends Controller
      */
     public function show($id)
     {
-        $ingreso = Ingreso::findOrFail($id);
+        $ingreso = Ingreso::findOrFail($id)->with('cuenta')->get();
         return view('ingresos.show',['ingreso'=>$ingreso]);
     }
 
@@ -75,7 +77,7 @@ class IngresosController extends Controller
      */
     public function edit($id)
     {
-        $ingreso = Ingreso::findOrFail($id);
+        $ingreso = Ingreso::findOrFail($id)->with('cuenta')->get();;
         return view('ingresos.edit',['ingreso'=>$ingreso]);
     }
 
@@ -90,7 +92,7 @@ class IngresosController extends Controller
     {
         $ingreso = Ingreso::findOrFail($id);
 		$ingreso->fecha = $request->input('fecha');
-		$ingreso->cuenta_bancolombia = $request->input('cuenta_bancolombia');
+        $ingreso->cuenta_banco_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
