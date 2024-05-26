@@ -31,7 +31,7 @@
 				<td>{{ $operario->nit }}</td>
 				<td>{{ $operario->numero_contacto }}</td>
 				<td>{{ $operario->direccion }}</td>
-				<td>{{ $operario->fecha_ingreso }}</td>
+				<td>{{ Carbon\Carbon::parse($operario->fecha_ingreso)->format('d/m/Y') }}</td>
 
 				<td>
 					<div class="d-flex gap-2">

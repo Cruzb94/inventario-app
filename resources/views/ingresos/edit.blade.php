@@ -22,6 +22,7 @@
                 @endif
 
                 {!! Form::model($ingreso, array('route' => array('ingresos.update', $ingreso->id), 'method' => 'PUT')) !!}
+
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         {{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}

@@ -31,7 +31,7 @@
 
 				<td>{{ $entrada->producto->referencia }}</td>
 				<td>{{ $entrada->producto->descripcion }}</td>
-				<td>{{ $entrada->fecha }}</td>
+				<td>{{ Carbon\Carbon::parse($entrada->fecha)->format('d/m/Y') }}</td>
 				<td>{{ $entrada->cantidad }}</td>
 				<td>{{ $entrada->operario->name }}</td>
 				<td>{{ $entrada->reproceso }}</td>
