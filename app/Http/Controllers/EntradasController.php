@@ -8,6 +8,8 @@ use App\Models\Entrada;
 use App\Models\Producto;
 use App\Models\Operario;
 use App\Http\Requests\EntradaRequest;
+use Illuminate\Http\Request;
+
 
 class EntradasController extends Controller
 {
@@ -22,11 +24,21 @@ class EntradasController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $entradas= Entrada::with('producto')->with('operario')->get();
-
-        return view('entradas.index', ['entradas'=>$entradas]);
+        $query = Entrada::query();
+    
+        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
+            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+        }
+    
+        // Añadir las relaciones
+        $query->with('producto', 'operario');
+    
+        // Obtener los resultados del query
+        $entradas = $query->get();
+    
+        return view('entradas.index', ['entradas' => $entradas]);
     }
 
     /**

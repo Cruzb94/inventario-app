@@ -9,6 +9,22 @@
 
 @section('content')
 <a href="{{ route('entradas.create') }}" class="btn btn-bg-purple mb-3">Create</a>
+<!-- Formulario de filtro por fecha -->
+<form method="GET" action="{{ route('entradas.index') }}" class="mb-4">
+    <div class="row align-items-end">
+        <div class="col-md-4">
+            <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="{{ request('fecha_inicio') }}">
+        </div>
+        <div class="col-md-4">
+            <label for="fecha_fin" class="form-label">Fecha Fin</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ request('fecha_fin') }}">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-bg-purple">Filtrar</button>
+        </div>
+    </div>
+</form>
 
 <table id="entrada"  class="table table-striped table-bordered shadow-lg mt-4 " style="width:100%">
 	<thead>
@@ -189,5 +205,19 @@ $('.formulario-eliminar').submit(function(e){
 });
 });
 
+</script>
+
+<script>
+    function toggleReferencias(id) {
+        const referenciasExtra = document.getElementById(`referencias-extra-${id}`);
+        const button = document.getElementById(`toggle-button-${id}`);
+        if (referenciasExtra.style.display === "none") {
+            referenciasExtra.style.display = "block";
+            button.textContent = "Ver menos";
+        } else {
+            referenciasExtra.style.display = "none";
+            button.textContent = "Ver más";
+        }
+    }
 </script>
 @stop

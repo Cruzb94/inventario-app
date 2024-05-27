@@ -10,6 +10,22 @@
    
 <a href="{{ route('tallers.create') }}" class="btn btn-bg-purple mb-3">Create</a>
 
+<form method="GET" action="{{ route('tallers.index') }}" class="mb-4">
+    <div class="row align-items-end">
+        <div class="col-md-4">
+            <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="{{ request('fecha_inicio') }}">
+        </div>
+        <div class="col-md-4">
+            <label for="fecha_fin" class="form-label">Fecha Fin</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ request('fecha_fin') }}">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-bg-purple">Filtrar</button>
+        </div>
+    </div>
+</form>
+
 <table id="tallers"  class=" table-bordered shadow-lg mt-4 " style="width:100%">
 		<thead>
 			<tr>
@@ -218,6 +234,20 @@ $('.formulario-eliminar').submit(function(e){
         } else {
             extraReferencias.style.display = 'none';
             toggleButton.textContent = 'Ver más';
+        }
+    }
+</script>
+
+<script>
+    function toggleReferencias(id) {
+        const referenciasExtra = document.getElementById(`referencias-extra-${id}`);
+        const button = document.getElementById(`toggle-button-${id}`);
+        if (referenciasExtra.style.display === "none") {
+            referenciasExtra.style.display = "block";
+            button.textContent = "Ver menos";
+        } else {
+            referenciasExtra.style.display = "none";
+            button.textContent = "Ver más";
         }
     }
 </script>

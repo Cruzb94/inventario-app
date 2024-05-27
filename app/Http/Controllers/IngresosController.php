@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ingreso;
 use App\Models\CuentaBanco;
 use App\Http\Requests\IngresoRequest;
+use Illuminate\Http\Request;
 
 class IngresosController extends Controller
 {
@@ -21,10 +22,23 @@ class IngresosController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ingresos= Ingreso::with('cuenta')->get();
-        return view('ingresos.index', ['ingresos'=>$ingresos]);
+        $query = Ingreso::query();
+    
+        // Aplicar filtro de fechas si están presentes en la solicitud
+        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
+            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+        }
+    
+        // Añadir la relación con 'cuenta'
+        $query->with('cuenta');
+    
+        // Obtener los resultados del query
+        $ingresos = $query->get();
+    
+        // Pasar los resultados a la vista
+        return view('ingresos.index', ['ingresos' => $ingresos]);
     }
 
     /**
@@ -35,6 +49,7 @@ class IngresosController extends Controller
     public function create()
     {
         $cuentas= CuentaBanco::all();
+
         return view('ingresos.create', ['cuentabancos'=>$cuentas]);
     }
 

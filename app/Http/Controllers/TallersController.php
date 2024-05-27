@@ -8,6 +8,7 @@ use App\Models\Taller;
 use App\Models\Producto;
 use App\Models\Operario;
 use App\Http\Requests\TallerRequest;
+use Illuminate\Http\Request;
 
 class TallersController extends Controller
 {
@@ -22,13 +23,23 @@ class TallersController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tallers= Taller::with('operario')->get();
-      
-      
-
-        return view('tallers.index', ['tallers'=>$tallers]);
+        $query = Taller::query();
+    
+        // Aplicar filtro de fechas si están presentes en la solicitud
+        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
+            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+        }
+    
+        // Añadir la relación con 'operario'
+        $query->with('operario');
+    
+        // Obtener los resultados del query
+        $tallers = $query->get();
+    
+        // Pasar los resultados a la vista
+        return view('tallers.index', ['tallers' => $tallers]);
     }
 
     /**

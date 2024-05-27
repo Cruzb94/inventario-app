@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Operario;
 use App\Http\Requests\OperarioRequest;
+use Illuminate\Http\Request;
+
 
 class OperariosController extends Controller
 {
@@ -20,12 +22,21 @@ class OperariosController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $operarios= Operario::all();
-        return view('operarios.index', ['operarios'=>$operarios]);
+        $query = Operario::query();
+    
+        // Aplicar filtro de fechas si están presentes en la solicitud
+        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
+            $query->whereBetween('fecha_ingreso', [$request->fecha_inicio, $request->fecha_fin]);
+        }
+    
+        // Obtener los resultados del query
+        $operarios = $query->get();
+    
+        // Pasar los resultados a la vista
+        return view('operarios.index', ['operarios' => $operarios]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
