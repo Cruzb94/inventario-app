@@ -31,11 +31,16 @@
                 </div>
                 </div>
 
-                <div class="form-group row mt-4">
+                <div class="form-group row">
                     <div class="col-sm-10">
-                        {{ Form::label('cuenta_banco_id', 'Cuenta', ['class'=>'form-label']) }}
-                        {{ Form::select('cuenta_banco_id', $cuentabancos->pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una cuenta']) }}
-                    </div>
+                    {{ Form::label('cuenta_bancolombia', 'Cuenta_bancolombia', ['class'=>'form-label']) }}
+                    {{ Form::select('cuenta_banco_id', $cuentabancos->pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una cuenta']) }}
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                    {{ Form::label('Bancolombia', 'Bancolombia', ['class'=>'form-label']) }}
+                    {{ Form::text('bancolombia', null, array('class' => 'form-control')) }}
+                </div>
                 </div>
 
                 <div class="form-group row">

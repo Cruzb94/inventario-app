@@ -43,6 +43,11 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
+                    {{ Form::label('Bancolombia', 'Bancolombia', ['class'=>'form-label']) }}
+                    {{ Form::text('bancolombia', null, array('class' => 'form-control')) }}
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
                         {{ Form::label('efectivo', 'Efectivo', ['class'=>'form-label']) }}
                         {{ Form::number('efectivo', null, array('class' => 'form-control')) }}
                     </div>

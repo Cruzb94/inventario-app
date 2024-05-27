@@ -65,6 +65,7 @@ class IngresosController extends Controller
 		$ingreso->fecha = $request->input('fecha');
 		$ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
+        $ingreso->bancolombia = $request->input('bancolombia');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();
@@ -112,6 +113,7 @@ class IngresosController extends Controller
 		$ingreso->fecha = $request->input('fecha');
         $ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
+        $ingreso->bancolombia = $request->input('bancolombia');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();

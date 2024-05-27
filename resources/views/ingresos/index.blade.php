@@ -32,6 +32,7 @@
 				<th  class=" bg-purple text-wwhite">fecha</th>
 				<th  class=" bg-purple text-wwhite">cuenta_bancolombia</th>
 				<th  class=" bg-purple text-wwhite">nequi</th>
+				<th  class=" bg-purple text-wwhite">bancolombia</th>
 				<th  class=" bg-purple text-wwhite">efectivo</th>
 				<th  class=" bg-purple text-wwhite">descripcion</th>
 
@@ -46,6 +47,7 @@
 					<td>{{ Carbon\Carbon::parse($ingreso->fecha)->format('d/m/Y') }}</td>
 					<td>{{ $ingreso->cuenta->name  }} <strong>-</strong> {{ $ingreso->cuenta->nro_cuenta  }} </td>
 					<td>{{ $ingreso->nequi }}</td>
+					<td>{{ $ingreso->bancolombia }}</td>
 					<td>{{ $ingreso->efectivo }}</td>
 					<td>{{ $ingreso->descripcion }}</td>
 
