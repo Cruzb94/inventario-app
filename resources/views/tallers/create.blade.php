@@ -55,7 +55,7 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <label class="form-label" for="descripcion1">Descripción</label>
-                            <input type="text" name="descripcion1" id="descripcion1" class="form-control" value="{{ old('descripcion1') }} ">
+                            <input type="text" name="descripcion1" id="descripcion1" class="form-control" value="{{ old('descripcion1') }} " readonly>
                         </div>
                     </div>
                     <div class="form-group row">

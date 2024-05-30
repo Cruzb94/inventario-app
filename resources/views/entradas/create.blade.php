@@ -33,7 +33,7 @@
 
                         <div class="col-sm-5">
                         {{ Form::label('product_id[]', 'Referencia', ['class'=>'form-label']) }}
-                        {{ Form::select('product_id[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
+                        {{ Form::select('product_id[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
                         </div>
                 
                     <div class="col-sm-5">
@@ -47,7 +47,7 @@
                 <div class="form-group row">
                     <div class="col-sm-10">
                         {{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
-                        {{ Form::date('fecha', null, array('class' => 'form-control')) }}
+                        {{ Form::date('fecha', null, array('class' => 'form-control', 'id' => 'fecha')) }}
                     </div>
                 </div>
 
@@ -117,6 +117,24 @@
 
 @section('js')
 <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el campo de fecha
+        const fechaField = document.getElementById('fecha');
+        
+        // Obtener la fecha actual
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+        const day = String(today.getDate()).padStart(2, '0');
+        
+        // Formatear la fecha en YYYY-MM-DD
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        // Establecer el valor del campo de fecha
+        fechaField.value = formattedDate;
+    });
+</script>
+<script>
         let referenciaIndex = 1;
     function addReferencia() {
     const container = document.getElementById('referencias-container');
@@ -140,7 +158,7 @@
         
         <div class="col-sm-5 position-relative">
             {{ Form::label('product_id[]', 'Referencia ', ['class'=>'form-label']) }} 
-            {{ Form::select('product_id[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
+            {{ Form::select('product_id[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
         </div>
         <div class="col-sm-5">
             {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}

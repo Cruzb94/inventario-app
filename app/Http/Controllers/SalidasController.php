@@ -57,7 +57,7 @@ class SalidasController extends Controller
      */
     public function store(SalidaRequest $request)
     {
-       // dd($request->all());
+        dd($request->all());
 
 
         $referencia = array();

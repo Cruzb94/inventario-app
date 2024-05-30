@@ -63,7 +63,7 @@ class EntradasController extends Controller
     public function store(EntradaRequest $request)
     {
      
-       // dd($request->all());
+       dd($request->all());
         $entrada = new Entrada;
 		$entrada->producto_id = $request->input('product_id');
 		$entrada->fecha = $request->input('fecha');

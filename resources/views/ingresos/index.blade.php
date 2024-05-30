@@ -125,22 +125,22 @@
         "pageLength": 25, // Establece el valor predeterminado a 25
 		   "ordering": false,
 		   "footerCallback": function (row, data, start, end, display) {
-            var api = this.api();
+					var api = this.api();
 
-            // Total over all pages
-            var totalNequi = api.column(2).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            }, 0);
+					// Total over all filtered pages
+					var totalNequi = api.column(2, { search: 'applied' }).data().reduce(function (a, b) {
+						return parseFloat(a) + parseFloat(b);
+					}, 0);
 
-            var totalEfectivo = api.column(3).data().reduce(function (a, b) {
-                return parseFloat(a) + parseFloat(b);
-            }, 0);
+					var totalEfectivo = api.column(4, { search: 'applied' }).data().reduce(function (a, b) {
+						return parseFloat(a) + parseFloat(b);
+					}, 0);
 
-            // Update footer
-            $(api.column(2).footer()).html(totalNequi.toFixed(2));
-            $(api.column(3).footer()).html(totalEfectivo.toFixed(2));
-        }
-	 
+					// Update footer
+					$(api.column(2).footer()).html(totalNequi.toFixed(2));
+					$(api.column(4).footer()).html(totalEfectivo.toFixed(2));
+				}
+					
 	 
 
    
