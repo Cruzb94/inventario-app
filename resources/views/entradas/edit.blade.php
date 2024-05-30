@@ -112,11 +112,7 @@
             top: -30px;
             right: 0;
         }
-        .my-4 {
-            border-top: 2px solid black; /* Cambia el grosor y color de la línea */
-            margin-top: 20px; /* Ajusta el espacio encima de la línea */
-            margin-bottom: 20px; /* Ajusta el espacio debajo de la línea */
-        }
+
     </style>
 	<link rel="stylesheet" href="{{ asset('estilos/estilos.css') }}">
 @stop
@@ -129,16 +125,16 @@ const container = document.getElementById('referencias-container');
 const div = document.createElement('div');
 div.classList.add('form-group', 'row', 'mt-2', 'referencia-item');
 
-const currentIndex = document.querySelectorAll('.referencia-item').length + 1;
+//const currentIndex = document.querySelectorAll('.referencia-item').length + 1;
 
-const hr = document.createElement('hr');
-hr.classList.add('my-4');
-container.appendChild(hr);
+//const hr = document.createElement('hr');
+//hr.classList.add('my-4');
+//container.appendChild(hr);
 
 div.innerHTML = `
     <div class="d-flex justify-content-between mb-4 col-sm-12">
         
-        <h3>Referencia ${currentIndex}</h3>
+       
         <button type="button" class="btn btn-danger" onclick="removeReferencia(this)">
             <i class="fa-solid fa-circle-xmark"></i>
         </button>            
