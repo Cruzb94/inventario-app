@@ -22,12 +22,28 @@
                 @endif
 
                 {!! Form::model($entrada, ['route' => ['entradas.update', $entrada->id], 'method' => 'PUT']) !!}
-                <div class="form-group row mt-4">
-                    <div class="col-sm-10">
+
+
+                <div id="referencias-container">
+                <div class="form-group row mt-4 referencia-item" data-index="1"">
+                    <div class="col-sm-12 text-right mr-5">
+                        <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div class="col-sm-5">
                         {{ Form::label('product_id', 'Referencia', ['class'=>'form-label']) }}
                         {{ Form::select('product_id', $productos->pluck('referencia', 'id'), $entrada->producto_id, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
                     </div>
+
+                
+                    <div class="col-sm-5">
+                        {{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
+                        {{ Form::number('cantidad', null, ['class' => 'form-control']) }}
+                        {{ Form::hidden('cantidad_original', null, ['id' => 'cantidad_original']) }}
+                    </div>
                 </div>
+            </div>
+
+
 
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -36,13 +52,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('cantidad', 'Cantidad', ['class'=>'form-label']) }}
-                        {{ Form::number('cantidad', null, ['class' => 'form-control']) }}
-                        {{ Form::hidden('cantidad_original', null, ['id' => 'cantidad_original']) }}
-                    </div>
-                </div>
+
 
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -81,11 +91,99 @@
         .card-body {
             padding: 30px;
         }
+
+        .btn-bg-purple {
+            background-color: purple;
+            color: white;
+        }
+
+        .referencia-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .referencia-item .btn-danger {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .referencia-item .btn-success {
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+        .my-4 {
+            border-top: 2px solid black; /* Cambia el grosor y color de la línea */
+            margin-top: 20px; /* Ajusta el espacio encima de la línea */
+            margin-bottom: 20px; /* Ajusta el espacio debajo de la línea */
+        }
     </style>
 	<link rel="stylesheet" href="{{ asset('estilos/estilos.css') }}">
 @stop
 
 @section('js')
+<script>
+    let referenciaIndex = 1;
+function addReferencia() {
+const container = document.getElementById('referencias-container');
+const div = document.createElement('div');
+div.classList.add('form-group', 'row', 'mt-2', 'referencia-item');
+
+const currentIndex = document.querySelectorAll('.referencia-item').length + 1;
+
+const hr = document.createElement('hr');
+hr.classList.add('my-4');
+container.appendChild(hr);
+
+div.innerHTML = `
+    <div class="d-flex justify-content-between mb-4 col-sm-12">
+        
+        <h3>Referencia ${currentIndex}</h3>
+        <button type="button" class="btn btn-danger" onclick="removeReferencia(this)">
+            <i class="fa-solid fa-circle-xmark"></i>
+        </button>            
+    </div>
+    
+    <div class="col-sm-5 position-relative">
+        {{ Form::label('product_id[]', 'Referencia ', ['class'=>'form-label']) }} 
+        {{ Form::select('product_id[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
+    </div>
+    <div class="col-sm-5">
+        {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
+        {{ Form::number('cantidad[]', null, ['class' => 'form-control']) }}
+    </div>
+
+`;
+container.appendChild(div);
+
+
+
+}
+
+function removeReferencia(button) {
+const referenciaItem = button.closest('.referencia-item');
+const hr = referenciaItem.previousElementSibling; // Obtener el hr anterior al grupo de referencia
+referenciaItem.remove();
+if (hr && hr.classList.contains('my-4')) {
+    hr.remove(); // Eliminar el hr si existe y tiene la clase 'my-4'
+}
+updateReferenciaLabels(); // Llama a esta función para actualizar los números de referencia
+}
+
+function updateReferenciaLabels() {
+const items = document.querySelectorAll('.referencia-item');
+let currentIndex = 2;
+items.forEach((item) => {
+    const h3 = item.querySelector('h3');
+    if (h3) {
+        h3.textContent = `Referencia ${currentIndex}`;
+        currentIndex++;
+    }
+});
+}
+</script>
+
+
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 @stop
