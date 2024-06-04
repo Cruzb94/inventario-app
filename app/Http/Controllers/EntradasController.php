@@ -63,20 +63,39 @@ class EntradasController extends Controller
     public function store(EntradaRequest $request)
     {
      
-       dd($request->all());
-        $entrada = new Entrada;
-		$entrada->producto_id = $request->input('product_id');
-		$entrada->fecha = $request->input('fecha');
-		$entrada->cantidad = $request->input('cantidad');
-		$entrada->operario_id = $request->input('operario_id');
-		$entrada->reproceso = $request->input('reproceso');
+    //   dd($request->all());
 
+        if(count($request->input('product_id')) > 0) {
+            for ($i=0; $i < count($request->input('product_id')); $i++) { 
+                $entrada = new Entrada;
+                $entrada->producto_id = $request->input('product_id')[$i];
+                $entrada->fecha = $request->input('fecha');
+                $entrada->cantidad = $request->input('cantidad')[$i];
+                $entrada->operario_id = $request->input('operario_id');
+                $entrada->reproceso = $request->input('reproceso');
+                
+                if($entrada->save()) {
+                    $producto = Producto::findOrFail($request->input('product_id')[$i]);
+                    $producto->stock =  $producto->stock +  $request->input('cantidad')[$i];
+                    $producto->save();
+                }
+            }
+           
+        } else {
+            $entrada = new Entrada;
+            $entrada->producto_id = $request->input('product_id');
+            $entrada->fecha = $request->input('fecha');
+            $entrada->cantidad = $request->input('cantidad');
+            $entrada->operario_id = $request->input('operario_id');
+            $entrada->reproceso = $request->input('reproceso');
 
-        if($entrada->save()) {
-            $producto = Producto::findOrFail($request->input('product_id'));
-            $producto->stock =  $producto->stock +  $request->input('cantidad');
-            $producto->save();
+            if($entrada->save()) {
+                $producto = Producto::findOrFail($request->input('product_id'));
+                $producto->stock =  $producto->stock +  $request->input('cantidad');
+                $producto->save();
+            }
         }
+
         return to_route('entradas.index')->with('create','ok1');
     }
 
