@@ -31,39 +31,40 @@
                             <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button>
                         </div>
 
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                         {{ Form::label('product_id[]', 'Referencia', ['class'=>'form-label']) }}
                         {{ Form::select('product_id[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
                         </div>
                 
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
                         {{ Form::number('cantidad[]', null, array('class' => 'form-control')) }}
+                    </div>
+
+                    
+
+                    <div class="col-sm-4">
+                        {{ Form::label('reproceso[]', 'Reproceso', ['class'=>'form-label']) }}
+                        {{ Form::number('reproceso[]', null, array('class' => 'form-control')) }}
                     </div>
         
             </div>
         </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         {{ Form::label('fecha', 'Fecha', ['class'=>'form-label']) }}
                         {{ Form::date('fecha', null, array('class' => 'form-control', 'id' => 'fecha')) }}
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         {{ Form::label('operario_id', 'Operario', ['class'=>'form-label']) }}
                         {{ Form::select('operario_id', $operarios->pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione un operario']) }}
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('reproceso', 'Reproceso', ['class'=>'form-label']) }}
-                        {{ Form::number('reproceso', null, array('class' => 'form-control')) }}
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-5">
@@ -156,14 +157,19 @@
             </button>            
         </div>
         
-        <div class="col-sm-5 position-relative">
+        <div class="col-sm-4 position-relative">
             {{ Form::label('product_id[]', 'Referencia ', ['class'=>'form-label']) }} 
             {{ Form::select('product_id[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
             {{ Form::number('cantidad[]', null, ['class' => 'form-control']) }}
         </div>
+        
+        <div class="col-sm-4">
+                        {{ Form::label('reproceso[]', 'Reproceso', ['class'=>'form-label']) }}
+                        {{ Form::number('reproceso[]', null, array('class' => 'form-control')) }}
+                    </div>
    
     `;
     container.appendChild(div);
