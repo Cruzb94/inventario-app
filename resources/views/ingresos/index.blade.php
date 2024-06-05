@@ -15,15 +15,28 @@
 	<!-- Formulario de filtro por fecha -->
 <form method="GET" action="{{ route('ingresos.index') }}" class="mb-4">
     <div class="row align-items-end">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
             <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="{{ request('fecha_inicio') }}">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="fecha_fin" class="form-label">Fecha Fin</label>
             <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ request('fecha_fin') }}">
+
         </div>
-        <div class="col-md-4 d-flex align-items-end">
+
+		<div class="col-md-3">
+			<label for="cuenta_bancolombia" class="form-label">Cuenta Bancolombia</label>
+			<select id="cuenta_bancolombia" name="cuenta_bancolombia" class="form-control">
+				<option value="">Seleccione una cuenta</option>
+				@foreach($cuentas as $cuenta)
+					<option value="{{ $cuenta->id }}" {{ request('cuenta_bancolombia') == $cuenta->id ? 'selected' : '' }}>
+						{{ $cuenta->name }} - {{ $cuenta->nro_cuenta }}
+					</option>
+				@endforeach
+			</select>
+		</div>
+        <div class="col-md-3 d-flex align-items-end">
             <button type="submit" class="btn btn-bg-purple">Filtrar</button>
         </div>
     </div>

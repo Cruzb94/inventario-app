@@ -24,23 +24,40 @@ class IngresosController extends Controller
      */
     public function index(Request $request)
     {
+        // Obtener todas las cuentas bancarias
+        $cuentas = CuentaBanco::all();
+    
+        // Inicializar la consulta de ingresos
         $query = Ingreso::query();
     
-        // Aplicar filtro de fechas si están presentes en la solicitud
-        if ($request->has(['fecha_inicio', 'fecha_fin'])) {
-            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+        // Verificar los filtros de fecha y cuenta bancaria
+        if ($request->filled(['fecha_inicio', 'fecha_fin', 'cuenta_bancolombia'])) {
+            // Si hay fecha y cuenta bancaria
+            $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin])
+                  ->where('cuenta_id', $request->cuenta_bancolombia);
+        } elseif ($request->filled(['cuenta_bancolombia'])) {
+            // Si solo hay cuenta bancaria
+            $query->where('cuenta_id', $request->cuenta_bancolombia);
+        } else {
+            // Si no hay filtros o solo hay fecha
+            $query->when($request->filled(['fecha_inicio', 'fecha_fin']), function ($query) use ($request) {
+                $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
+            });
         }
     
         // Añadir la relación con 'cuenta'
         $query->with('cuenta');
-    
+        
         // Obtener los resultados del query
         $ingresos = $query->get();
-    
-        // Pasar los resultados a la vista
-        return view('ingresos.index', ['ingresos' => $ingresos]);
+        
+        // Pasar los resultados y las cuentas a la vista
+        return view('ingresos.index', [
+            'ingresos' => $ingresos,
+            'cuentas' => $cuentas
+        ]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

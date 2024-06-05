@@ -38,14 +38,14 @@
                 
                     <div class="col-sm-4">
                         {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
-                        {{ Form::number('cantidad[]', null, array('class' => 'form-control')) }}
+                        {{ Form::number('cantidad[]', null, array('class' => 'form-control', 'oninput' => 'calculateTotal(this)')) }}
                     </div>
 
                     
 
                     <div class="col-sm-4">
                         {{ Form::label('reproceso[]', 'Reproceso', ['class'=>'form-label']) }}
-                        {{ Form::number('reproceso[]', null, array('class' => 'form-control')) }}
+                        {{ Form::number('reproceso[]', null, array('class' => 'form-control', 'oninput' => 'calculateTotal(this)')) }}
                     </div>
         
             </div>
@@ -163,12 +163,12 @@
         </div>
         <div class="col-sm-4">
             {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
-            {{ Form::number('cantidad[]', null, ['class' => 'form-control']) }}
+            {{ Form::number('cantidad[]', null, ['class' => 'form-control','oninput' => 'calculateTotal(this)']) }}
         </div>
         
         <div class="col-sm-4">
                         {{ Form::label('reproceso[]', 'Reproceso', ['class'=>'form-label']) }}
-                        {{ Form::number('reproceso[]', null, array('class' => 'form-control')) }}
+                        {{ Form::number('reproceso[]', null, array('class' => 'form-control','oninput' => 'calculateTotal(this)')) }}
                     </div>
    
     `;
@@ -200,6 +200,34 @@ function updateReferenciaLabels() {
     });
 }
 </script>
+<script>
+function calculateTotal(element) {
+    const referenciaItem = element.closest('.referencia-item');
+    const cantidadInput = referenciaItem.querySelector('input[name="cantidad[]"]');
+    const cantidad = parseInt(referenciaItem.querySelector('input[name="cantidad[]"]').value);
+    // Obtener el valor seleccionado de la referencia
+    const reprocesoInput = referenciaItem.querySelector('input[name="reproceso[]"]');
+    const reproceso = parseInt(referenciaItem.querySelector('input[name="reproceso[]"]').value);
+
+    // Verificar si la cantidad supera el stock
+    if (reproceso > cantidad) {
+        // Mostrar alerta
+        Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: `El reproceso actual (${reproceso}) es mayor que la cantidad que deseas ingresar al inventario (${cantidad}).`
+        });
+        // Limpiar los valores de cantidad y reproceso
+        cantidadInput.value = '';
+        reprocesoInput.value = '';
+        // Salir de la función
+        return;
+    }
+}
+
+</script>
+
+
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 @stop
