@@ -4,6 +4,8 @@
 
 @section('content_header')
     <h1>Productos</h1>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @stop
 
 @section('content')
@@ -97,6 +99,16 @@
    
 		 "lengthMenu": [ [5, 10, 50, -1], [5, 10, 50, 100] ],
 		   "ordering": false,
+		   "dom": 'lfBrtip', // Mostrar los botones en la parte superior derecha
+        "buttons": [
+            {
+                text: '<i class="fa-solid fa-file-pdf"></i>',
+                className: 'btn btn-danger mb-2',
+                action: function () {
+                    generarReportePDF();
+                }
+            }
+        ]
 	 
 	 
 
@@ -104,7 +116,54 @@
 	 } );
    } );
    
-   
+   </script>
+
+   <script>
+   function generarReportePDF() {
+    // Obtener el token CSRF
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // Obtener los datos de la tabla
+    let tableData = obtenerDatosTabla();
+
+    // Enviar los datos al servidor
+    fetch('/generar-reporte-pdf', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify(tableData),
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        // Crear una URL para el blob
+        let url = window.URL.createObjectURL(blob);
+
+        // Abrir el PDF en una nueva ventana
+        window.open(url);
+    })
+    .catch(error => console.error('Error al generar el reporte PDF:', error));
+}
+
+// Función para obtener los datos de la tabla
+function obtenerDatosTabla() {
+    let tableData = [];
+    $('#procuctos tbody tr').each(function() {
+        let rowData = [];
+        $(this).find('td').each(function(index) {
+            // Excluir la posición 3 que contiene el texto "Edit"
+            if (index !== 3) {
+                rowData.push($(this).text().trim()); // Agregar solo el texto de la celda
+            }
+        });
+        tableData.push(rowData);
+    });
+    return tableData;
+}
+
+   </script>
+
    </script>
 
 

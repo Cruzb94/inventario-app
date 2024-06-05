@@ -4,6 +4,8 @@
 
 @section('content_header')
     <h1>Ingresos</h1>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @stop
 
 @section('content')
@@ -103,52 +105,100 @@
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 
 <script>  
-	// new DataTable('#articulos');
-	 $(document).ready(function() {
-	 $('#ingresos').dataTable( {  
-	   //fixedHeader: true,
-	   //responsive: true,
-		"language": {
-			   "lengthMenu": "Mostrar _MENU_ Registro por pagina",
-			   "zeroRecords": "Nada Encontrado - Disculpa",
-			   "info": "Mostrando la pagina _PAGE_ de _PAGES_",
-			   "infoEmpty": "No records available",
-			   "infoFiltered": "(Filtrado de _MAX_ Registros totales)",
-			   "search": "Buscar:",
-			   "paginate":{
-				   'next': 'Siguiente',
-				   'previous': 'Anterior'
-			   }
-		   },
-   
-		   "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
-        "pageLength": 25, // Establece el valor predeterminado a 25
-		   "ordering": false,
-		   "footerCallback": function (row, data, start, end, display) {
-					var api = this.api();
+    $(document).ready(function() {
+        $('#ingresos').dataTable({
+            // Resto de tu configuración...
+            "dom": 'lfBrtip', // Mostrar los botones en la parte superior derecha
+            "buttons": [
+                {
+                    text: '<i class="fa-solid fa-file-pdf"></i>',
+                    className: 'btn btn-danger mb-2',
+                    action: function () {
+                        generarReportePDF();
+                    }
+                }
+            ],
+            // Resto de tu configuración...
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ Registro por pagina",
+                "zeroRecords": "Nada Encontrado - Disculpa",
+                "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                "infoEmpty": "No records available",
+                "infoFiltered": "(Filtrado de _MAX_ Registros totales)",
+                "search": "Buscar:",
+                "paginate":{
+                    'next': 'Siguiente',
+                    'previous': 'Anterior'
+                }
+            },
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+            "pageLength": 25, // Establece el valor predeterminado a 25
+            "ordering": false,
+            "footerCallback": function (row, data, start, end, display) {
+                var api = this.api();
 
-					// Total over all filtered pages
-					var totalNequi = api.column(2, { search: 'applied' }).data().reduce(function (a, b) {
-						return parseFloat(a) + parseFloat(b);
-					}, 0);
+                // Total over all filtered pages
+                var totalNequi = api.column(2, { search: 'applied' }).data().reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
 
-					var totalEfectivo = api.column(4, { search: 'applied' }).data().reduce(function (a, b) {
-						return parseFloat(a) + parseFloat(b);
-					}, 0);
+                var totalEfectivo = api.column(4, { search: 'applied' }).data().reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
 
-					// Update footer
-					$(api.column(2).footer()).html(totalNequi.toFixed(2));
-					$(api.column(4).footer()).html(totalEfectivo.toFixed(2));
-				}
-					
-	 
-
-   
-	 } );
-   } );
-   
-   
+                // Update footer
+                $(api.column(2).footer()).html(totalNequi.toFixed(2));
+                $(api.column(4).footer()).html(totalEfectivo.toFixed(2));
+            }
+        });
+    });
    </script>
+
+<script>
+	function generarReportePDF() {
+	 // Obtener el token CSRF
+	 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+ 
+	 // Obtener los datos de la tabla
+	 let tableData = obtenerDatosTabla();
+ 
+	 // Enviar los datos al servidor
+	 fetch('/generar-reporte5-pdf', {
+		 method: 'POST',
+		 headers: {
+			 'Content-Type': 'application/json',
+			 'X-CSRF-TOKEN': csrfToken
+		 },
+		 body: JSON.stringify(tableData),
+	 })
+	 .then(response => response.blob())
+	 .then(blob => {
+		 // Crear una URL para el blob
+		 let url = window.URL.createObjectURL(blob);
+ 
+		 // Abrir el PDF en una nueva ventana
+		 window.open(url);
+	 })
+	 .catch(error => console.error('Error al generar el reporte PDF:', error));
+ }
+ 
+ // Función para obtener los datos de la tabla
+ function obtenerDatosTabla() {
+	 let tableData = [];
+	 $('#ingresos tbody tr').each(function() {
+		 let rowData = [];
+		 $(this).find('td').each(function(index) {
+			 // Excluir la posición 3 que contiene el texto "Edit"
+			 if (index !== 6) {
+				 rowData.push($(this).text().trim()); // Agregar solo el texto de la celda
+			 }
+		 });
+		 tableData.push(rowData);
+	 });
+	 return tableData;
+ }
+ 
+	</script>
 
    
 @if (session('create') == 'ok1')

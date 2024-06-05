@@ -78,20 +78,7 @@
                         {{ Form::date('fecha', null, ['class' => 'form-control', 'id' => 'fecha']) }}
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('guia', 'Guia', ['class'=>'form-label']) }}
-                        {{ Form::text('guia', null, ['class' => 'form-control']) }}
-                    </div>
-                </div>
 
-
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('estatus', 'Estatus', ['class'=>'form-label']) }}
-                        {{ Form::select('estatus', ['' => 'Seleccione un Estatus', 'Enviado' => 'Enviado', 'Entregados' => 'Entregados', 'Devuelvo al remitente'], null, ['class' => 'form-control']) }}
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-6">

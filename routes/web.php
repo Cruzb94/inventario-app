@@ -9,6 +9,8 @@ use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\TallersController;
 use App\Http\Controllers\CuentaBancosController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductoControllerpdf;
+
 
 
 
@@ -89,6 +91,12 @@ Route::resource('ingresos', IngresosController::class)->middleware('admin');
 
 Route::resource('cuentabancos', CuentaBancosController::class)->middleware('admin');
 
+Route::post('/generar-reporte-pdf', [ProductoControllerpdf::class, 'generarReportePDF'])->name('generar_reporte_pdf');
+Route::post('/generar-reporte2-pdf', [ProductoControllerpdf::class, 'generarReporte2PDF'])->name('generar_otro_reporte_pdf');
+Route::post('/generar-reporte3-pdf', [ProductoControllerpdf::class, 'generarReporte3PDF'])->name('generar_otro2_reporte_pdf');
+Route::post('/generar-reporte4-pdf', [ProductoControllerpdf::class, 'generarReporte4PDF'])->name('generar_otro3_reporte_pdf');
+Route::post('/generar-reporte5-pdf', [ProductoControllerpdf::class, 'generarReporte5PDF'])->name('generar_otro4_reporte_pdf');
+Route::post('/generar-reporte6-pdf', [ProductoControllerpdf::class, 'generarReporte6PDF'])->name('generar_otro5_reporte_pdf');
 
 Route::resource('users', UserController::class)->middleware('admin');
 
