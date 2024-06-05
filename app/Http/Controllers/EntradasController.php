@@ -62,36 +62,36 @@ class EntradasController extends Controller
      */
     public function store(EntradaRequest $request)
     {
-     
     //   dd($request->all());
-
         if(count($request->input('product_id')) > 0) {
             for ($i=0; $i < count($request->input('product_id')); $i++) { 
                 $entrada = new Entrada;
+                $cantidad = $request->input('cantidad')[$i] - $request->input('reproceso')[$i];
                 $entrada->producto_id = $request->input('product_id')[$i];
                 $entrada->fecha = $request->input('fecha');
-                $entrada->cantidad = $request->input('cantidad')[$i];
+                $entrada->cantidad = $cantidad;
                 $entrada->operario_id = $request->input('operario_id');
-                $entrada->reproceso = $request->input('reproceso');
-                
+                $entrada->reproceso = $request->input('reproceso')[$i];
+              
                 if($entrada->save()) {
                     $producto = Producto::findOrFail($request->input('product_id')[$i]);
-                    $producto->stock =  $producto->stock +  $request->input('cantidad')[$i];
+                    $producto->stock = $producto->stock + $cantidad;
                     $producto->save();
                 }
             }
            
         } else {
             $entrada = new Entrada;
+            $cantidad = $request->input('cantidad') - $request->input('reproceso');
             $entrada->producto_id = $request->input('product_id');
             $entrada->fecha = $request->input('fecha');
-            $entrada->cantidad = $request->input('cantidad');
+            $entrada->cantidad =  $cantidad;
             $entrada->operario_id = $request->input('operario_id');
             $entrada->reproceso = $request->input('reproceso');
 
             if($entrada->save()) {
                 $producto = Producto::findOrFail($request->input('product_id'));
-                $producto->stock =  $producto->stock +  $request->input('cantidad');
+                $producto->stock = $producto->stock + $cantidad;
                 $producto->save();
             }
         }
@@ -141,19 +141,38 @@ class EntradasController extends Controller
      */
     public function update(EntradaRequest $request, $id)
     {
-        //dd($request->all());
-        $entrada = Entrada::findOrFail($id);
-		$entrada->producto_id = $request->input('product_id');
-		$entrada->fecha = $request->input('fecha');
-		$entrada->cantidad = $request->input('cantidad');
-		$entrada->operario_id = $request->input('operario_id');
-		$entrada->reproceso = $request->input('reproceso');
-      
+   
+        if(is_array($request->input('product_id'))) {
+            for ($i=0; $i < count($request->input('product_id')); $i++) { 
+                $entrada = Entrada::findOrFail($id);
+                $cantidad = $request->input('cantidad')[$i] - $request->input('reproceso')[$i];
+                $entrada->producto_id = $request->input('product_id')[$i];
+                $entrada->fecha = $request->input('fecha');
+                $entrada->cantidad = $cantidad;
+                $entrada->operario_id = $request->input('operario_id');
+                $entrada->reproceso = $request->input('reproceso')[$i];
+              
+                if($entrada->save()) {
+                    $producto = Producto::findOrFail($request->input('product_id')[$i]);
+                    $producto->stock = $producto->stock + $cantidad;
+                    $producto->save();
+                }
+            }
+           
+        } else {
+            $entrada = Entrada::findOrFail($id);
+            $cantidad = $request->input('cantidad') - $request->input('reproceso');
+            $entrada->producto_id = $request->input('product_id');
+            $entrada->fecha = $request->input('fecha');
+            $entrada->cantidad =  $cantidad;
+            $entrada->operario_id = $request->input('operario_id');
+            $entrada->reproceso = $request->input('reproceso');
 
-        if($entrada->save()) {
-            $producto = Producto::findOrFail($request->input('product_id'));
-            $producto->stock =  $producto->stock +  $request->input('cantidad');
-            $producto->save();
+            if($entrada->save()) {
+                $producto = Producto::findOrFail($request->input('product_id'));
+                $producto->stock = $producto->stock + $cantidad;
+                $producto->save();
+            }
         }
         
 

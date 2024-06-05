@@ -27,7 +27,7 @@
                 <div id="referencias-container">
                 <div class="form-group row mt-4 referencia-item" data-index="1"">
                     <div class="col-sm-12 text-right mr-5">
-                        <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button>
+                    <!--   <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button> -->
                     </div>
                     <div class="col-sm-5">
                         {{ Form::label('product_id', 'Referencia', ['class'=>'form-label']) }}

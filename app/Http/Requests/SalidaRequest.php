@@ -25,9 +25,7 @@ class SalidaRequest extends FormRequest
     {
         $rules = [
             'fecha' => 'required',
-            'guia' => 'required',
             'valor' => 'required',
-            'estatus' => 'required',
         ];
     
         // Verifica si hay datos para referencia y cantidad
