@@ -63,24 +63,8 @@
                         {{ Form::date('fecha', null, array('class' => 'form-control')) }}
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('guia', 'Guia', ['class'=>'form-label']) }}
-                        {{ Form::text('guia', null, array('class' => 'form-control')) }}
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('valor', 'Valor', ['class'=>'form-label']) }}
-                        {{ Form::number('valor', null, array('class' => 'form-control')) }}
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        {{ Form::label('estatus', 'Estatus', ['class'=>'form-label']) }}
-                        {{ Form::select('estatus', ['' => 'Seleccione un Estatus', 'Enviado' => 'Enviado', 'Entregados' => 'Entregados', 'Devuelvo al remitente' => 'Devuelvo al remitente'], $salida->estatsus, ['class' => 'form-control']) }}
-                    </div>
-                </div>
+
+
 
                 <div class="form-group row mt-4">
                     <div class="col-sm-5">

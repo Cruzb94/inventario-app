@@ -32,9 +32,6 @@
         <tr>
             <th class="bg-purple text-white">referencia</th>
             <th class="bg-purple text-white">fecha</th>
-            <th class="bg-purple text-white">guia</th>
-            <th class="bg-purple text-white">valor</th>
-            <th class="bg-purple text-white">estatus</th>
             <th class="bg-purple text-white">Action</th>
         </tr>
     </thead>
@@ -64,9 +61,6 @@
                     @endif
                 </td>
                 <td>{{ Carbon\Carbon::parse($salida->fecha)->format('d/m/Y') }}</td>
-                <td>{{ $salida->guia }}</td>
-                <td>{{ $salida->valor }}</td>
-                <td>{{ $salida->estatsus }}</td>
                 <td>
                     <div class="d-flex gap-2">
                         <a href="{{ route('salidas.edit', [$salida->id]) }}" class="btn btn-primary">Edit</a>
