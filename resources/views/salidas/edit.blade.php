@@ -26,32 +26,43 @@
                 <div id="referencias-container">
                     @php
                         $referencias = json_decode($salida->referencia, true);
+                       // dd($referencias);
                     @endphp
                @if($referencias)
                @for($i = 0; $i < count($referencias[0]); $i++)
                    <div class="refern2" data-index="{{ $i + 1 }}">
                        @if($i > 0)
-                           <hr class="my-4">
-                           <div class="d-flex justify-content-between mb-5">
-                               <h3 class="flex-grow-1">Referencia {{ $i + 1 }}</h3>
-                               <button type="button" class="btn btn-danger ml-2" onclick="removeReferencia(this)">
-                                   <i class="fa-solid fa-circle-xmark"></i>
-                               </button>
-                           </div>
+                       <div class="col-sm-12 text-right mr-5">
+                        <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                        @endif
-                       <div class="form-group row">
-                       <div class="col-sm-10 position-relative">
+                       <div class="col-sm-2 position-relative">
                            {{ Form::label('referencia[]', 'Referencia ', ['class'=>'form-label']) }}
                            {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), $referencias[0][$i], ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
                        </div>
-                    </div>
-                    <div class="form-group row">
-                       <div class="col-sm-10 mt-2">
-                           {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
-                           {{ Form::number('cantidad[]', $referencias[1][$i], ['class' => 'form-control']) }}
-                           {{ Form::hidden('cantidad_original[]', $referencias[1][$i]) }}
+
+                       <div class="col-sm-2 position-relative">
+                           {{ Form::label('descripcion[]', 'Descripcion', ['class'=>'form-label']) }}
+                           {{ Form::text('descripcion[]', $referencias[1][$i], ['class' => 'form-control']) }}
+                          
                        </div>
-                    </div>
+
+                       <div class="col-sm-2 position-relative">
+
+                           {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
+                           {{ Form::number('cantidad[]', $referencias[2][$i], ['class' => 'form-control']) }}
+                           {{ Form::hidden('cantidad_original[]', $referencias[2][$i]) }}
+                       </div>
+
+                       <div class="col-sm-2 position-relative">
+                           {{ Form::label('valor[]', 'Valor', ['class'=>'form-label']) }}
+                           {{ Form::number('valor[]', $referencias[3][$i], ['class' => 'form-control']) }}
+                       </div>
+
+                       <div class="col-sm-2 position-relative">
+                           {{ Form::label('valortotal[]', 'valortotal', ['class'=>'form-label']) }}
+                           {{ Form::number('valortotal[]', $referencias[4][$i], ['class' => 'form-control']) }}
+                       </div>
                    </div>
                @endfor
            @endif

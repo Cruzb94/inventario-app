@@ -32,6 +32,8 @@
         <tr>
             <th class="bg-purple text-white">referencia</th>
             <th class="bg-purple text-white">fecha</th>
+            <th class="bg-purple text-white">Cantidad Total</th>
+            <th class="bg-purple text-white">Valor total de todo</th>
             <th class="bg-purple text-white">Action</th>
         </tr>
     </thead>
@@ -41,19 +43,26 @@
                 <td>
                     @php
                         $referencias = json_decode($salida->referencia, true);
+                       // dd($referencias);
                         
                     @endphp
                     @if($referencias)
                         <div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
                             <strong>Referencia:</strong> {{ $referencias[0][0] }}<br>
-                            <strong>Cantidad:</strong> {{ $referencias[1][0] }}
+                            <strong>Descripción:</strong> {{ $referencias[1][0] }}<br>
+                            <strong>Cantidad:</strong> {{ $referencias[2][0] }}<br>
+                            <strong>Valor:</strong> {{ $referencias[3][0] }}<br>
+                            <strong>Valor Total:</strong> {{ $referencias[4][0] }}
                         </div>
                         @if(count($referencias[0]) > 1)
                             <div id="referencias-extra-{{ $salida->id }}" style="display: none;">
                                 @for($i = 1; $i < count($referencias[0]); $i++)
                                     <div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
                                         <strong>Referencia:</strong> {{ $referencias[0][$i] }}<br>
-                                        <strong>Cantidad:</strong> {{ $referencias[1][$i] }}
+                                        <strong>Descripción:</strong> {{ $referencias[1][$i] }}<br>
+                                        <strong>Cantidad:</strong> {{ $referencias[2][$i] }}<br>
+                                        <strong>Valor:</strong> {{ $referencias[3][$i] }}<br>
+                                        <strong>Valor Total:</strong> {{ $referencias[4][$i] }}
                                     </div>
                                 @endfor
                             </div>
@@ -62,6 +71,8 @@
                     @endif
                 </td>
                 <td>{{ Carbon\Carbon::parse($salida->fecha)->format('d/m/Y') }}</td>
+                <td>{{ $salida->valorcantidades }}</td>
+                <td>{{ $salida->valortotal }}</td>
                 <td>
                     <div class="d-flex gap-2">
                         <a href="{{ route('salidas.edit', [$salida->id]) }}" class="btn btn-primary">Edit</a>
