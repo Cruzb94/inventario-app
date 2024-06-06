@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-body">
                 @if($errors->any())
@@ -22,51 +22,66 @@
                 @endif
 
                 {!! Form::model($salida, array('route' => array('salidas.update', $salida->id), 'method' => 'PUT')) !!}
-                
-                <div id="referencias-container">
+
+                <div id="referencias-container" class="container">
                     @php
                         $referencias = json_decode($salida->referencia, true);
-                       // dd($referencias);
                     @endphp
-               @if($referencias)
-               @for($i = 0; $i < count($referencias[0]); $i++)
-                   <div class="refern2" data-index="{{ $i + 1 }}">
-                       @if($i > 0)
-                       <div class="col-sm-12 text-right mr-5">
-                        <button type="button" class="btn btn-success" onclick="addReferencia()"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                       @endif
-                       <div class="col-sm-2 position-relative">
-                           {{ Form::label('referencia[]', 'Referencia ', ['class'=>'form-label']) }}
-                           {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), $referencias[0][$i], ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
-                       </div>
+                    @if($referencias)
+                        @for($i = 0; $i < count($referencias[0]); $i++)
+                            <div class="form-group row mt-4 referencia-item" data-index="{{ $i + 1 }}">
+                                <div class="col-sm-12 text-right mr-5">
+                                    @if($i === 0)
+                                        <button type="button" class="btn btn-success" onclick="addReferencia()">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-danger" onclick="removeReferencia(this)">
+                                            <i class="fa-solid fa-circle-xmark"></i>
+                                        </button>
+                                    @endif
+                                </div>
+                                <div class="col-sm-2 position-relative">
+                                    {{ Form::label('referencia[]', 'Referencia', ['class' => 'form-label']) }}
+                                    {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), $referencias[0][$i], ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
+                                </div>
+                                <div class="col-sm-2 position-relative">
+                                    {{ Form::label('descripcion[]', 'Descripcion', ['class' => 'form-label']) }}
+                                    {{ Form::text('descripcion[]', $referencias[1][$i], ['class' => 'form-control', 'readonly' => true]) }}
+                                </div>
+                                <div class="col-sm-2 position-relative">
+                                    {{ Form::label('cantidad[]', 'Cantidad', ['class' => 'form-label']) }}
+                                    {{ Form::number('cantidad[]', $referencias[2][$i], ['class' => 'form-control','oninput' => 'calculateTotal(this)']) }}
+                                    {{ Form::hidden('cantidad_original[]', $referencias[2][$i]) }}
+                                </div>
+                                <div class="col-sm-2 position-relative">
+                                    {{ Form::label('valor[]', 'Valor', ['class' => 'form-label']) }}
+                                    {{ Form::number('valor[]', $referencias[3][$i], ['class' => 'form-control','oninput' => 'calculateTotal(this)']) }}
+                                </div>
+                                <div class="col-sm-2 position-relative">
+                                    {{ Form::label('valortotal[]', 'Valor Total', ['class' => 'form-label']) }}
+                                    {{ Form::number('valortotal[]', $referencias[4][$i], ['class' => 'form-control', 'readonly' => true]) }}
+                                </div>
 
-                       <div class="col-sm-2 position-relative">
-                           {{ Form::label('descripcion[]', 'Descripcion', ['class'=>'form-label']) }}
-                           {{ Form::text('descripcion[]', $referencias[1][$i], ['class' => 'form-control']) }}
-                          
-                       </div>
-
-                       <div class="col-sm-2 position-relative">
-
-                           {{ Form::label('cantidad[]', 'Cantidad', ['class'=>'form-label']) }}
-                           {{ Form::number('cantidad[]', $referencias[2][$i], ['class' => 'form-control']) }}
-                           {{ Form::hidden('cantidad_original[]', $referencias[2][$i]) }}
-                       </div>
-
-                       <div class="col-sm-2 position-relative">
-                           {{ Form::label('valor[]', 'Valor', ['class'=>'form-label']) }}
-                           {{ Form::number('valor[]', $referencias[3][$i], ['class' => 'form-control']) }}
-                       </div>
-
-                       <div class="col-sm-2 position-relative">
-                           {{ Form::label('valortotal[]', 'valortotal', ['class'=>'form-label']) }}
-                           {{ Form::number('valortotal[]', $referencias[4][$i], ['class' => 'form-control']) }}
-                       </div>
-                   </div>
-               @endfor
-           @endif
+                                
+                            </div>
+                            
+                            
+                        @endfor
+                    @endif
                 </div>
+                    <div class="form-group row ">
+                        <div class="col-sm-10">
+                            {{ Form::label('valorcantidadtotal', 'Valor de todas las cantidades', ['class'=>'form-label']) }}
+                            {{ Form::number('valorcantidadtotal', $salida->valorcantidades, ['class' => 'form-control','readonly' => true]) }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            {{ Form::label('valortodo', 'Valor de todo el total', ['class'=>'form-label']) }}
+                            {{ Form::number('valortodo', $salida->valortotal, ['class' => 'form-control','readonly' => true]) }}
+                        </div>
+                    </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -81,66 +96,84 @@
                     <div class="col-sm-5">
                         {{ Form::submit('Actualizar', array('class' => 'btn btn-bg-purple')) }}
                     </div>
-                    <div class="col-sm-5 text-right">
-                        <button type="button" class="btn btn-success" onclick="addReferencia()">Agregar Referencia</button>
-                    </div>
                 </div>
 
-                {{ Form::close() }}
+              
+            
             </div>
         </div>
     </div>
 </div>
-
+{{ Form::close() }}
 <script>
-    let referenciaIndex = {{ isset($referencias) ? count($referencias[0]) : 0 }};
+     let referenciaIndex = {{ isset($referencias) ? count($referencias[0]) : 0 }};
     
     function addReferencia() {
         const container = document.getElementById('referencias-container');
         const div = document.createElement('div');
-        div.classList.add('form-group', 'row', 'mt-2', 'referencia-item');
+        div.classList.add('form-group', 'row', 'mt-4', 'referencia-item');
         
         referenciaIndex++;
         const currentIndex = referenciaIndex;
 
-        const hr = document.createElement('hr');
-        hr.classList.add('my-4');
-        container.appendChild(hr);
-
         div.innerHTML = `
-            <div class="d-flex justify-content-between mb-2">
-                <h3 class="flex-grow-1">Referencia ${currentIndex}</h3>
-                
-                <button type="button" class="btn btn-danger ml-2" onclick="removeReferencia(this)">
+            <div class="col-sm-12 text-right mr-5">
+                <button type="button" class="btn btn-danger" onclick="removeReferencia(this)">
                     <i class="fa-solid fa-circle-xmark"></i>
                 </button>
             </div>
-            <div class="col-sm-10 position-relative">
-                <label for="referencia_${currentIndex}" class="form-label">Referencia</label>
-                <select name="referencia[]" id="referencia_${currentIndex}" class="form-control">
-                    <option value="">Seleccione una referencia</option>
-                    @foreach($productos as $producto)
-                        <option value="{{ $producto->referencia }}">{{ $producto->referencia }}</option>
-                    @endforeach
-                </select>
+            <div class="col-sm-2 position-relative">
+                {{ Form::label('referencia[]', 'Referencia', ['class' => 'form-label']) }}
+                {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
             </div>
-            <div class="col-sm-10 mt-2">
-                <label for="cantidad_${currentIndex}" class="form-label">Cantidad</label>
-                <input type="number" name="cantidad[]" id="cantidad_${currentIndex}" class="form-control" />
+            <div class="col-sm-2 position-relative">
+                {{ Form::label('descripcion[]', 'Descripcion', ['class' => 'form-label']) }}
+                {{ Form::text('descripcion[]', null, ['class' => 'form-control', 'readonly' => true]) }}
+            </div>
+            <div class="col-sm-2 position-relative">
+                {{ Form::label('cantidad[]', 'Cantidad', ['class' => 'form-label']) }}
+                {{ Form::number('cantidad[]', null, ['class' => 'form-control','oninput' => 'calculateTotal(this)']) }}
+                {{ Form::hidden('cantidad_original[]', null) }}
+            </div>
+            <div class="col-sm-2 position-relative">
+                {{ Form::label('valor[]', 'Valor', ['class' => 'form-label']) }}
+                {{ Form::number('valor[]', null, ['class' => 'form-control','oninput' => 'calculateTotal(this)']) }}
+            </div>
+            <div class="col-sm-2 position-relative">
+                {{ Form::label('valortotal[]', 'Valor Total', ['class' => 'form-label']) }}
+                {{ Form::number('valortotal[]', null, ['class' => 'form-control', 'readonly' => true]) }}
             </div>
         `;
         container.appendChild(div);
     }
 
-    function removeReferencia(button) {
-        const referenciaItem = button.closest('.referencia-item, .refern2');
-        const hr = referenciaItem.previousElementSibling; // Obtener el hr anterior al grupo de referencia
-        referenciaItem.remove();
-        if (hr && hr.classList.contains('my-4')) {
-            hr.remove(); // Eliminar el hr si existe y tiene la clase 'my-4'
-        }
-        updateReferenciaLabels(); // Llama a esta función para actualizar los números de referencia
+
+function removeReferencia(button) {
+    const referenciaItem = button.closest('.referencia-item');
+    const hr = referenciaItem.previousElementSibling; // Obtener el hr anterior al grupo de referencia
+
+    // Obtener el select de referencia
+    const referenciaSelect = referenciaItem.querySelector('select[name="referencia[]"]');
+    // Obtener el valor seleccionado actualmente
+    const selectedReferencia = referenciaSelect.value;
+    // Eliminar la referencia seleccionada del registro
+    const index = referenciasSeleccionadas.indexOf(selectedReferencia);
+    if (index !== -1) {
+        referenciasSeleccionadas.splice(index, 1);
+        console.log(referenciasSeleccionadas);
     }
+
+
+    referenciaItem.remove();
+
+    updateTotalValue(); // Actualiza el total después de eliminar una referencia
+    updateTotalCantidad();
+
+   /* if (hr && hr.classList.contains('my-4')) {
+        hr.remove(); // Eliminar el hr si existe y tiene la clase 'my-4'
+    }*/
+   // updateReferenciaLabels(); // Llama a esta función para actualizar los números de referencia
+}
 
     function updateReferenciaLabels() {
         const items = document.querySelectorAll('.referencia-item, .refern2');
@@ -183,13 +216,14 @@
 
         .referencia-item .btn-danger {
             position: absolute;
-            top: 0;
+            top: -30px;
             right: 0;
         }
-        .my-4 {
-            border-top: 2px solid black;
-            margin-top: 20px;
-            margin-bottom: 20px;
+
+        .referencia-item .btn-success {
+            position: absolute;
+            top: -30px;
+            right: 0;
         }
     </style>
     <link rel="stylesheet" href="{{ asset('estilos/estilos.css') }}">
@@ -198,6 +232,154 @@
 
 @section('js')
 
+<script>
+    function calculateTotal(element) {
+    const referenciaItem = element.closest('.referencia-item');
+    const cantidadInput = referenciaItem.querySelector('input[name="cantidad[]"]'); 
+    const cantidad = referenciaItem.querySelector('input[name="cantidad[]"]').value;
+    const valor = referenciaItem.querySelector('input[name="valor[]"]').value;
+    const totalField = referenciaItem.querySelector('input[name="valortotal[]"]');
+    const total = cantidad * valor;
+
+    // Obtener el valor seleccionado de la referencia
+    const referenciaSelect = referenciaItem.querySelector('select[name="referencia[]"]');
+    const selectedReferencia = referenciaSelect.value;
+
+    // Obtener el producto correspondiente
+    const producto = productos.find(producto => producto.id == selectedReferencia);
+    const stock = producto ? producto.stock : 0;
+
+    // Verificar si la cantidad supera el stock
+    if (parseInt(cantidad) > stock) {
+        // Mostrar alerta
+        Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: `La cantidad que deseas despachar (${cantidad}) es mayor que la disponible en stock (${stock}) para este producto.`
+        })        // Limpiar el valor de cantidad
+        cantidadInput.value = '';
+        // Salir de la función
+        return;
+    }
+
+
+    totalField.value = total ? total.toFixed(2) : 0;
+    // Actualizar el valor de "Valor de todo"
+    updateTotalValue();
+    updateTotalCantidad();
+}
+
+function updateTotalValue() {
+    const totalFields = document.querySelectorAll('input[name="valortotal[]"]');
+    let totalSum = 0;
+    
+    totalFields.forEach(field => {
+        totalSum += parseFloat(field.value) || 0;
+    });
+    
+    const totalTodoField = document.querySelector('input[name="valortodo"]');
+    totalTodoField.value = totalSum.toFixed(2);
+}
+function updateTotalCantidad() {
+    const cantidadFields = document.querySelectorAll('input[name="cantidad[]"]');
+    let totalCantidad = 0;
+
+    cantidadFields.forEach(field => {
+        totalCantidad += parseFloat(field.value) || 0;
+    });
+
+    const totalCantidadField = document.querySelector('input[name="valorcantidadtotal"]');
+    totalCantidadField.value = totalCantidad.toFixed(2);
+}
+</script>
+
+<script>
+    // Almacena las descripciones de los productos en un objeto
+    const productos = @json($productos);
+    
+
+    // Registro de referencias seleccionadas
+    let referenciasSeleccionadas = Array.from(document.querySelectorAll('select[name="referencia[]"]')).map(select => select.value);
+   // console.log(referenciasSeleccionadas);
+   let primeraLlamada = true;
+   let primeraLlamada2 = true;
+    function updateDescripcion(selectElement) {
+    // Obtener el valor seleccionado
+    const selectedReferencia = selectElement.value;
+
+    // Verificar si es la primera llamada y asignar el valor correspondiente a previousSelected
+    let previousSelected;
+    if (primeraLlamada) {
+        previousSelected = referenciasSeleccionadas.length > 0 ? referenciasSeleccionadas[referenciasSeleccionadas.length - 1] : null;
+        primeraLlamada = false;
+    } else {
+        previousSelected = selectElement.dataset.selected;
+    }
+
+    console.log(previousSelected);
+
+    if (referenciasSeleccionadas.includes(selectedReferencia)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: `La referencia ${selectedReferencia} ya ha sido seleccionada.`
+        }) 
+
+        let previousSelected;
+    if (primeraLlamada2) {
+        previousSelected = referenciasSeleccionadas.length > 0 ? referenciasSeleccionadas[referenciasSeleccionadas.length - 1] : null;
+        primeraLlamada2 = false;
+    } else {
+        previousSelected = selectElement.dataset.selected;
+    }
+
+
+
+console.log(previousSelected);
+
+//console.log(previousSelected);
+if (previousSelected && previousSelected !== selectedReferencia) {
+
+    //console.log('estoy locococo');
+    // Eliminar la selección anterior si ya no está presente
+    const index = referenciasSeleccionadas.indexOf(previousSelected);
+    if (index !== -1) {
+        referenciasSeleccionadas.splice(index, 1);
+    }
+}
+// Limpiar el campo después de verificar
+selectElement.value = ''; 
+const descripcionField = selectElement.closest('.referencia-item').querySelector('input[name="descripcion[]"]');
+descripcionField.value = ''; // Limpiar el campo de descripción
+return; 
+}
+
+
+
+    // Buscar la descripción correspondiente
+    const producto = productos.find(producto => producto.id == selectedReferencia);
+    const descripcion = producto ? producto.descripcion : '';
+
+        // Eliminar la referencia seleccionada anteriormente que ya no se está utilizando
+        const index = referenciasSeleccionadas.indexOf(selectElement.dataset.selected);
+    if (index !== -1) {
+        referenciasSeleccionadas.splice(index, 1);
+        console.log('llegue aqui');
+        console.log(referenciasSeleccionadas);
+    }
+
+    // Agregar el valor seleccionado al registro
+    referenciasSeleccionadas.push(selectedReferencia)
+    console.log(referenciasSeleccionadas);
+
+    // Obtener el campo de descripción correspondiente
+    const descripcionField = selectElement.closest('.referencia-item').querySelector('input[name="descripcion[]"]');
+    descripcionField.value = descripcion;
+
+        // Actualizar el atributo "data-selected" con la nueva referencia seleccionada
+        selectElement.dataset.selected = selectedReferencia;
+}
+    </script>
 
 @if (session('error'))
 <script>

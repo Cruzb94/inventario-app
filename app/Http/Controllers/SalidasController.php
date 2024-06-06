@@ -112,6 +112,7 @@ class SalidasController extends Controller
     public function edit($id)
     {
         $salida = Salida::findOrFail($id);
+       // dd( $salida );
         $productos = Producto::all();
         return view('salidas.edit',['salida'=>$salida, 'productos'=>$productos]);
     }
