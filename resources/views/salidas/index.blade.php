@@ -41,6 +41,7 @@
                 <td>
                     @php
                         $referencias = json_decode($salida->referencia, true);
+                        
                     @endphp
                     @if($referencias)
                         <div class="mb-2 p-2 border rounded" style="font-size: 0.85rem; background-color: #f9f9f9;">
