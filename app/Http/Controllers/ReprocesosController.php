@@ -56,7 +56,12 @@ class ReprocesosController extends Controller
             $producto = Producto::findOrFail($entrada->producto_id);
             $producto->stock = $producto->stock + $reproceso;
             $producto->save();
+
+            $reproceso = Reproceso::where('entrada_id', $entrada_id);
+            $reproceso->delete();
         }
+
+        return redirect()->back()->with('success', 'Reproceso añadido a stock');   
 
 
     }
