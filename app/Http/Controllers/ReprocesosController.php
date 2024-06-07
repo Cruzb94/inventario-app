@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Reproceso;
 use App\Models\Entrada;
+use App\Models\Producto;
 //use App\Http\Requests\OperarioRequest;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,22 @@ class ReprocesosController extends Controller
         // Pasar los resultados a la vista
 
         return view('reprocesos.index', ['entrada' => $entradas]);
+    }
+
+    public function updateStock($entrada_id) {
+        $entrada = Entrada::findOrFail($entrada_id);
+        $reproceso = $entrada->reproceso;
+        $cantidad = $entrada->cantidad + $entrada->reproceso;
+        $entrada->cantidad =  $cantidad;
+        $entrada->reproceso = 0;
+
+        if($entrada->save()) {
+            $producto = Producto::findOrFail($entrada->producto_id);
+            $producto->stock = $producto->stock + $reproceso;
+            $producto->save();
+        }
+
+
     }
     
     
