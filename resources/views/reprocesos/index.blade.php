@@ -22,8 +22,8 @@
         @foreach($entrada as $coleccion)
         @foreach($coleccion as $item)
             <tr>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->producto->referencia }}</td>
+                <td>{{ $item->id  }}</td>
+                <td>{{ $item->producto->referencia }}  <strong>-</strong>{{ $item->producto->descripcion  }} </td>
                 <td>{{ $item->reproceso }}</td>
                 <td>{{ $item->operario->name }}</td>
                 <td>
@@ -107,6 +107,20 @@
             }
         });
     });
+
+
 </script>
+
+@if(session('success'))
+<script>
+Swal.fire({
+    title: "¡Éxito!",
+    text: "{{ session('success') }}",
+    icon: "success",
+    confirmButtonText: "OK"
+});
+</script>
+@endif
+
 
 @stop
