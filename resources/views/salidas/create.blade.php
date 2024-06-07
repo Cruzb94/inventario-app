@@ -330,6 +330,7 @@ return;
 
     // Agregar el valor seleccionado al registro
     referenciasSeleccionadas.push(selectedReferencia)
+    console.log(referenciasSeleccionadas);
 
     // Obtener el campo de descripción correspondiente
     const descripcionField = selectElement.closest('.referencia-item').querySelector('input[name="descripcion[]"]');
