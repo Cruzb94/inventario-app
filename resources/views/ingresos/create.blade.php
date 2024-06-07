@@ -39,14 +39,14 @@
                 <div class="form-group row">
                     <div class="col-sm-10">
                     {{ Form::label('Bancolombia', 'Bancolombia', ['class'=>'form-label']) }}
-                    {{ Form::text('bancolombia', null, array('class' => 'form-control')) }}
+                    {{ Form::number('bancolombia', null, array('class' => 'form-control')) }}
                 </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">
                     {{ Form::label('nequi', 'Nequi', ['class'=>'form-label']) }}
-                    {{ Form::text('nequi', null, array('class' => 'form-control')) }}
+                    {{ Form::number('nequi', null, array('class' => 'form-control')) }}
                 </div>
                 </div>
 

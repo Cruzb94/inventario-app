@@ -30,16 +30,16 @@ class IngresosController extends Controller
         // Inicializar la consulta de ingresos
         $query = Ingreso::query();
     
-        // Verificar los filtros de fecha y cuenta bancaria
+    
         if ($request->filled(['fecha_inicio', 'fecha_fin', 'cuenta_bancolombia'])) {
-            // Si hay fecha y cuenta bancaria
+      
             $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin])
                   ->where('cuenta_id', $request->cuenta_bancolombia);
         } elseif ($request->filled(['cuenta_bancolombia'])) {
-            // Si solo hay cuenta bancaria
+       
             $query->where('cuenta_id', $request->cuenta_bancolombia);
         } else {
-            // Si no hay filtros o solo hay fecha
+     
             $query->when($request->filled(['fecha_inicio', 'fecha_fin']), function ($query) use ($request) {
                 $query->whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin]);
             });
@@ -82,7 +82,7 @@ class IngresosController extends Controller
 		$ingreso->fecha = $request->input('fecha');
 		$ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
-       // $ingreso->bancolombia = $request->input('bancolombia');
+       $ingreso->bancolombia = $request->input('bancolombia');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();
@@ -130,7 +130,7 @@ class IngresosController extends Controller
 		$ingreso->fecha = $request->input('fecha');
         $ingreso->cuenta_id = $request->input('cuenta_banco_id');
 		$ingreso->nequi = $request->input('nequi');
-       // $ingreso->bancolombia = $request->input('bancolombia');
+        $ingreso->bancolombia = $request->input('bancolombia');
 		$ingreso->efectivo = $request->input('efectivo');
 		$ingreso->descripcion = $request->input('descripcion');
         $ingreso->save();

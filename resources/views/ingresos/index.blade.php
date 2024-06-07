@@ -158,10 +158,14 @@
                 var totalEfectivo = api.column(4, { search: 'applied' }).data().reduce(function (a, b) {
                     return parseFloat(a) + parseFloat(b);
                 }, 0);
+                var totalBancolombia = api.column(3, { search: 'applied' }).data().reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
 
                 // Update footer
                 $(api.column(2).footer()).html(totalNequi.toFixed(2));
                 $(api.column(4).footer()).html(totalEfectivo.toFixed(2));
+                $(api.column(3).footer()).html(totalBancolombia.toFixed(2));
             }
         });
     });
