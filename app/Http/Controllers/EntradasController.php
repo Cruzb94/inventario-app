@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Entrada;
 use App\Models\Producto;
 use App\Models\Operario;
+use App\Models\Reproceso;
 use App\Http\Requests\EntradaRequest;
 use Illuminate\Http\Request;
 
@@ -78,6 +79,12 @@ class EntradasController extends Controller
                     $producto->stock = $producto->stock + $cantidad;
                     $producto->save();
                 }
+
+                if($request->input('reproceso')[$i] > 0) {
+                    $reproceso = new Reproceso;
+                    $reproceso->entrada_id =  $entrada->id;
+                    $reproceso->save();
+                }
             }
            
         } else {
@@ -93,6 +100,12 @@ class EntradasController extends Controller
                 $producto = Producto::findOrFail($request->input('product_id'));
                 $producto->stock = $producto->stock + $cantidad;
                 $producto->save();
+            }
+
+            if($request->input('reproceso') > 0) {
+                $reproceso = new Reproceso;
+                $reproceso->entrada_id =  $entrada->id;
+                $reproceso->save();
             }
         }
 

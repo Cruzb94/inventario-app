@@ -9,6 +9,7 @@ use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\TallersController;
 use App\Http\Controllers\CuentaBancosController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReprocesosController;
 use App\Http\Controllers\ProductoControllerpdf;
 
 
@@ -87,7 +88,7 @@ Route::delete('tallers/{taller}', [TallersController::class, 'destroy'])
 
 Route::resource('ingresos', IngresosController::class)->middleware('admin');
 
-
+Route::resource('reprocesos', ReprocesosController::class)->middleware('admin');
 
 Route::resource('cuentabancos', CuentaBancosController::class)->middleware('admin');
 

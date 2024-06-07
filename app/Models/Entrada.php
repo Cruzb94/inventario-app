@@ -19,4 +19,9 @@ class Entrada extends Model
 		return $this->belongsTo('App\Models\Operario');
 	}
 
+	public function reproceso()
+	{
+		return $this->hasMany('App\Models\Reproceso');
+	}
+
 }
