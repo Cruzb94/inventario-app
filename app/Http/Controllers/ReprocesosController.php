@@ -26,10 +26,17 @@ class ReprocesosController extends Controller
     public function index(Request $request)
     {
         $reprocesos = Reproceso::with('entrada')->get()->toArray();
-        $entrada = Entrada::where('id', $reprocesos[0]['entrada']['id'])->with('operario')->with('producto')->get();
+        $entradas = array();
+
+        for ($i=0; $i < count($reprocesos); $i++) { 
+            $entrada = Entrada::where('id', $reprocesos[$i]['entrada']['id'])->with('operario')->with('producto')->get();
+            array_push($entradas, $entrada);
+        }
+     
+      
      //   dd($reprocesos[0]['entrada']['operario_id']);
         // Pasar los resultados a la vista
-        dd($entrada);
+        dd($entradas);
         return view('reprocesos.index', ['entrada' => $entrada]);
     }
     
