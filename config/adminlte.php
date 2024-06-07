@@ -352,7 +352,7 @@ return [
                 [
                     'text' => 'Reproceso',
                     'icon' => "fa-solid fa-microchip",
-                    'url' => 'reproceso',
+                    'url' => 'reprocesos',
                    
                 ],
                 [
