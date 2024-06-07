@@ -350,6 +350,12 @@ return [
                     'can' => 'viewAny',
                 ],
                 [
+                    'text' => 'Reproceso',
+                    'icon' => "fa-solid fa-microchip",
+                    'url' => 'reproceso',
+                   
+                ],
+                [
                     'text' => 'Usuarios',
                     'icon' => "fa-solid fa-user-group",
                     'url' => 'users',

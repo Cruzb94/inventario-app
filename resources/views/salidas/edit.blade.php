@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-sm-2 position-relative">
                                     {{ Form::label('referencia[]', 'Referencia', ['class' => 'form-label']) }}
-                                    {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), $referencias[0][$i], ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
+                                    {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), $referencias[0][$i], ['class' => 'form-control loco', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
                                 </div>
                                 <div class="col-sm-2 position-relative">
                                     {{ Form::label('descripcion[]', 'Descripcion', ['class' => 'form-label']) }}
@@ -296,25 +296,26 @@ function updateTotalCantidad() {
 <script>
     // Almacena las descripciones de los productos en un objeto
     const productos = @json($productos);
-    
+    document.addEventListener('DOMContentLoaded', function() {
+    // Obtener todos los elementos select
+    const selects = document.querySelectorAll('select[name="referencia[]"]');
+
+    // Iterar sobre cada select y establecer el atributo data-selected
+    selects.forEach(select => {
+        select.dataset.selected = select.value;
+        //console.log(select.dataset.selected);
+    });
+});
 
     // Registro de referencias seleccionadas
     let referenciasSeleccionadas = Array.from(document.querySelectorAll('select[name="referencia[]"]')).map(select => select.value);
    // console.log(referenciasSeleccionadas);
-   let primeraLlamada = true;
-   let primeraLlamada2 = true;
     function updateDescripcion(selectElement) {
     // Obtener el valor seleccionado
     const selectedReferencia = selectElement.value;
 
     // Verificar si es la primera llamada y asignar el valor correspondiente a previousSelected
-    let previousSelected;
-    if (primeraLlamada) {
-        previousSelected = referenciasSeleccionadas.length > 0 ? referenciasSeleccionadas[referenciasSeleccionadas.length - 1] : null;
-        primeraLlamada = false;
-    } else {
-        previousSelected = selectElement.dataset.selected;
-    }
+    const previousSelected = selectElement.dataset.selected;
 
     console.log(previousSelected);
 
@@ -325,17 +326,7 @@ function updateTotalCantidad() {
             text: `La referencia ${selectedReferencia} ya ha sido seleccionada.`
         }) 
 
-        let previousSelected;
-    if (primeraLlamada2) {
-        previousSelected = referenciasSeleccionadas.length > 0 ? referenciasSeleccionadas[referenciasSeleccionadas.length - 1] : null;
-        primeraLlamada2 = false;
-    } else {
-        previousSelected = selectElement.dataset.selected;
-    }
-
-
-
-console.log(previousSelected);
+        const previousSelected = selectElement.dataset.selected;
 
 //console.log(previousSelected);
 if (previousSelected && previousSelected !== selectedReferencia) {
@@ -361,13 +352,24 @@ return;
     const descripcion = producto ? producto.descripcion : '';
 
         // Eliminar la referencia seleccionada anteriormente que ya no se está utilizando
+        
         const index = referenciasSeleccionadas.indexOf(selectElement.dataset.selected);
-    if (index !== -1) {
+        console.log(index);
+        if (index !== -1) {
+    if (selectElement.classList.contains('loco')) {
+        // Verificar si se cambió alguno de los campos predeterminados
+        if (previousSelected && previousSelected !== selectedReferencia) {
+            referenciasSeleccionadas.splice(index, 1);
+           /* console.log('llegue aqui');
+            console.log(referenciasSeleccionadas);*/
+        }
+    } else {
         referenciasSeleccionadas.splice(index, 1);
-        console.log('llegue aqui');
-        console.log(referenciasSeleccionadas);
+        //console.log('llegue aqui no estoy en los campo normales');
+            //console.log(referenciasSeleccionadas);
     }
 
+        }
     // Agregar el valor seleccionado al registro
     referenciasSeleccionadas.push(selectedReferencia)
     console.log(referenciasSeleccionadas);
