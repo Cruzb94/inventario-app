@@ -89,6 +89,7 @@ Route::delete('tallers/{taller}', [TallersController::class, 'destroy'])
 Route::resource('ingresos', IngresosController::class)->middleware('admin');
 
 Route::resource('reprocesos', ReprocesosController::class)->middleware('admin');
+Route::get('updateStock/{id}', ReprocesosController::class)->middleware('admin');
 
 Route::resource('cuentabancos', CuentaBancosController::class)->middleware('admin');
 
