@@ -4,7 +4,6 @@
 
 @section('content_header')
     <h1>Reprocesos</h1>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
 @section('content')
@@ -20,7 +19,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($entrada as $item)
+        @foreach($entrada as $coleccion)
+        @foreach($coleccion as $item)
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->producto->referencia }}</td>
@@ -29,14 +29,17 @@
                 <td>
                     <div class="d-flex gap-2">
                         @if(isAdmin())
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['productos.destroy', $item->id], 'class' => 'formulario-eliminar']) !!}
-                            {!! Form::submit('Reponer', ['class' => 'btn btn-bg-purple']) !!}
-                            {!! Form::close() !!}
+                        <form action="{{ route('updateStock', ['entrada_id' => $item->id]) }}" method="POST" class="formulario-eliminar">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-bg-purple">Reponer</button>
+                        </form>
                         @endif
                     </div>
                 </td>
             </tr>
         @endforeach
+    @endforeach
     </tbody>
 </table>
 

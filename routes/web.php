@@ -103,3 +103,6 @@ Route::post('/generar-reporte6-pdf', [ProductoControllerpdf::class, 'generarRepo
 Route::resource('users', UserController::class)->middleware('admin');
 
 Route::get('/obtener-descripcion/{id}', [ProductosController::class, 'obtenerDescripcion']);
+
+Route::put('updateStock/{entrada_id}', [ReprocesosController::class, 'updateStock'])->name('updateStock');
+

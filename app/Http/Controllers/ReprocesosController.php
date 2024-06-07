@@ -35,13 +35,17 @@ class ReprocesosController extends Controller
         }
      
       
-     //   dd($reprocesos[0]['entrada']['operario_id']);
+      // dd($reprocesos[0]['entrada']['operario_id']);
         // Pasar los resultados a la vista
+
+       // dd($entradas);
 
         return view('reprocesos.index', ['entrada' => $entradas]);
     }
 
     public function updateStock($entrada_id) {
+
+       // dd($entrada_id);
         $entrada = Entrada::findOrFail($entrada_id);
         $reproceso = $entrada->reproceso;
         $cantidad = $entrada->cantidad + $entrada->reproceso;
