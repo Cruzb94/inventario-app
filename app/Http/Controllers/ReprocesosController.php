@@ -36,8 +36,9 @@ class ReprocesosController extends Controller
       
      //   dd($reprocesos[0]['entrada']['operario_id']);
         // Pasar los resultados a la vista
-        dd($entradas);
-        return view('reprocesos.index', ['entrada' => $entrada]);
+
+        return view('reprocesos.index', ['entrada' => $entradas]);
     }
+    
     
 }
