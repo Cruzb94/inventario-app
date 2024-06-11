@@ -25,7 +25,7 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-10">
                         {{ Form::label('referencia', 'Referencia', ['class'=>'form-label']) }}
-                        {{ Form::text('referencia', null, ['class' => 'form-control']) }}
+                        {{ Form::number('referencia', null, ['class' => 'form-control']) }}
                     </div>
                 </div>
 
