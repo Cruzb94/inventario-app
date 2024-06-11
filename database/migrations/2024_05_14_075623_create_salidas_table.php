@@ -17,8 +17,8 @@ class CreateSalidasTable extends Migration
             $table->id();
             $table->text('referencia');
 			$table->date('fecha');
-			$table->string('guia');
-			$table->float('valor');
+			$table->string('valorcantidades');
+			$table->float('valortotal');
 			$table->string('estatsus');
             $table->timestamps();
          
