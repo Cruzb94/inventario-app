@@ -33,7 +33,7 @@
 
                         <div class="col-sm-4">
                         {{ Form::label('product_id[]', 'Referencia', ['class'=>'form-label']) }}
-                        {{ Form::select('product_id[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
+                        {{ Form::select('product_id[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia']) }}
                         </div>
                 
                     <div class="col-sm-4">

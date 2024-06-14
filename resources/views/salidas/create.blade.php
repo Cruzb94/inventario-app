@@ -33,7 +33,7 @@
 
                         <div class="col-sm-2 position-relative">
                             {{ Form::label('referencia[]', 'Referencia ', ['class'=>'form-label']) }}
-                            {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
+                            {{ Form::select('referencia[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
                           
                         </div>
                         <div class="col-sm-2 position-relative">
@@ -154,7 +154,7 @@
         </div>
         <div class="col-sm-2 position-relative">
             {{ Form::label('referencia[]', 'Referencia ', ['class'=>'form-label']) }} 
-            {{ Form::select('referencia[]', $productos->pluck('referencia', 'referencia'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
+            {{ Form::select('referencia[]', $productos->pluck('referencia', 'id'), null, ['class' => 'form-control', 'placeholder' => 'Seleccione una referencia','onchange' => 'updateDescripcion(this)']) }}
         </div>
         <div class="col-sm-2 position-relative">
             {{ Form::label('descripcion[]', 'Descripcion ', ['class'=>'form-label']) }}

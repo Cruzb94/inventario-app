@@ -76,7 +76,7 @@ class SalidasController extends Controller
 
       // if($salida->save()) {
         for ($i = 0; $i < count($request->input('referencia')); $i++) {
-            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+            $producto = Producto::where('id', $request->input('referencia')[$i])->first();
     
             if ($request->input('cantidad')[$i] > $producto->stock) {
                 return redirect()->route('salidas.create')->with('error', ' La Cantidad es mayor al inventario disponible');
@@ -136,7 +136,7 @@ class SalidasController extends Controller
         $salida = Salida::findOrFail($id);
 
         for ($i = 0; $i < count($request->input('referencia')); $i++) {
-            $producto = Producto::where('referencia', $request->input('referencia')[$i])->first();
+            $producto = Producto::where('id', $request->input('referencia')[$i])->first();
             
 
             if ($request->input('cantidad')[$i] > $producto->stock) {

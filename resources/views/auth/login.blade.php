@@ -69,7 +69,7 @@
                             <div class="text-center pt-1 mb-5 pb-1">
                               <button class="btn btn-bg-purple  mb-3" type="submit">Ingresar
                             </button>
-                            <a href="/register" class="btn btn-dark mb-3">Registrar</a>
+                            <!-- <a href="/register" class="btn btn-dark mb-3">Registrar</a> -->
                               <a class="text-muted ms-2 " href="{{ route('password.request') }}">Olvide mi Contraseña?</a>
                             </div>
           

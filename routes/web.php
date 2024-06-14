@@ -11,6 +11,7 @@ use App\Http\Controllers\CuentaBancosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReprocesosController;
 use App\Http\Controllers\ProductoControllerpdf;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -31,7 +32,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
